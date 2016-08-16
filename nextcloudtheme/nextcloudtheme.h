@@ -49,6 +49,14 @@ public:
         return themeIcon( QLatin1String("nextcloud-icon") );
     }
 
+    QString updateCheckUrl() const {
+        return QLatin1String("https://updates.nextcloud.org/client/");
+    }
+
+    QString helpUrl() const {
+        return QString::fromLatin1("https://docs.nextcloud.com/desktop/2.2/").arg(MIRALL_VERSION_MAJOR).arg(MIRALL_VERSION_MINOR);
+    }
+
 };
 
 }
