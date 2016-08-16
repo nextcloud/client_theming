@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/client">
-        <file>theme/colored/nextcloud-icon-512.png</file>
-        <file>theme/colored/nextcloud-icon-256.png</file>
-        <file>theme/colored/nextcloud-icon-128.png</file>
-        <file>theme/colored/nextcloud-icon-22.png</file>
-        <file>theme/colored/nextcloud-icon-32.png</file>
-        <file>theme/colored/nextcloud-icon-48.png</file>
-        <file>theme/colored/nextcloud-icon-64.png</file>
+        <file>theme/colored/Nextcloud-icon-512.png</file>
+        <file>theme/colored/Nextcloud-icon-256.png</file>
+        <file>theme/colored/Nextcloud-icon-128.png</file>
+        <file>theme/colored/Nextcloud-icon-22.png</file>
+        <file>theme/colored/Nextcloud-icon-32.png</file>
+        <file>theme/colored/Nextcloud-icon-48.png</file>
+        <file>theme/colored/Nextcloud-icon-64.png</file>
         <file>theme/colored/state-error-32.png</file>
         <file>theme/colored/state-error-64.png</file>
         <file>theme/colored/state-error-128.png</file>

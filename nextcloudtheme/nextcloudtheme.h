@@ -43,10 +43,10 @@ public:
     }
 
     QIcon trayFolderIcon( const QString& ) const  {
-        return themeIcon( QLatin1String("nextcloud-icon") );
+        return themeIcon( QLatin1String("Nextcloud-icon") );
     }
     QIcon applicationIcon() const  {
-        return themeIcon( QLatin1String("nextcloud-icon") );
+        return themeIcon( QLatin1String("Nextcloud-icon") );
     }
 
     QString updateCheckUrl() const {
