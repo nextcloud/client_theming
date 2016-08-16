@@ -57,6 +57,20 @@ public:
         return QString::fromLatin1("https://docs.nextcloud.com/desktop/2.2/").arg(MIRALL_VERSION_MAJOR).arg(MIRALL_VERSION_MINOR);
     }
 
+#ifndef TOKEN_AUTH_ONLY
+    QColor wizardHeaderBackgroundColor() const {
+        return QColor("#0082c9");
+    }
+
+    QColor wizardHeaderTitleColor() const {
+        return QColor("#ffffff");
+    }
+
+    QPixmap wizardHeaderLogo() const {
+        return QPixmap(hidpiFileName(":/client/theme/colored/wizard_logo.png"));
+    }
+#endif
+
 };
 
 }
