@@ -27,20 +27,20 @@ make install
 
 ## Building on OSX
 
-*Attention:* When building make sure to use an old Core 2 Duo build machine. Otherwise the resulting binary won't work properly for users of an older device.
+*Attention:* When building make sure to use an old Core 2 Duo build machine running OS X 10.10. Otherwise the resulting binary won't work properly for users of an older device.
 
 ### Install dependencies
 
 1. Install [HomeBrew](http://brew.sh/)
 2. `brew tap owncloud/owncloud`
-3. `brew install $(brew deps owncloud-client)`
+3. `brew install qtkeychain cmake`
 4. `brew install openssl`
 5. Download the newest Sparkle from https://sparkle-project.org/
 6. `mv Sparkle.framework ~/Library/Frameworks/`
 7. Install XCode
 8. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 9. Generate Sparkle keys: `./bin/generate_keys.sh`. Keep those, if you loose it you won't be able to deploy updates anymore.
-1. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
+10. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
 11. Install http://s.sudre.free.fr/Software/Packages/about.html
 
 ### Install older XCode SDK
@@ -86,10 +86,10 @@ git apply /Users/lukasreschke/client/admin/qt/patches/0015-Remove-legacy-platfor
 git apply /Users/lukasreschke/client/admin/qt/patches/0016-QSslSocket-evaluate-CAs-in-all-keychain-categories.patch
 git apply /Users/lukasreschke/client/admin/qt/patches/0017-Win32-Re-init-system-proxy-if-internet-settings-chan.patch
 git apply /Users/lukasreschke/client/admin/qt/patches/0018-Windows-Do-not-crash-if-SSL-context-is-gone-after-ro.patch
-git apply /Users/lukasreschke/client/admin/qt/patches/0019-Ensure-system-tray-icon-is-prepared-even-when-menu-bar.patch
+git apply /Users/lukasreschke/client/admin/qt/patches/019-Ensure-system-tray-icon-is-prepared-even-when-menu-bar.patch
 cd ..
 ./configure -sdk macosx10.8
-make
+make -j6
 sudo make -j1 install
 ```
 
