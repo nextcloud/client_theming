@@ -71,6 +71,22 @@ public:
     }
 #endif
 
+    QString about() const {
+        QString re;
+        re = tr("<p>Version %1. For more information please visit <a href='%2'>%3</a>.</p>")
+                .arg(MIRALL_VERSION_STRING).arg("http://" MIRALL_STRINGIFY(APPLICATION_DOMAIN))
+                .arg(MIRALL_STRINGIFY(APPLICATION_DOMAIN));
+
+        re += tr("<p>Copyright ownCloud, Incorporated</p>");
+        re += tr("<p>Distributed by %1 and licensed under the GNU General Public License (GPL) Version 2.0.<br/>"
+             "%2 and the %2 Logo are registered trademarks of %1 in the "
+             "European Union, other countries, or both.</p>")
+            .arg(APPLICATION_VENDOR).arg(APPLICATION_NAME);
+
+        re += gitSHA1();
+        return re;
+}
+
 };
 
 }
