@@ -32,16 +32,15 @@ make install
 ### Install dependencies
 
 1. Install [HomeBrew](http://brew.sh/)
-2. `brew tap owncloud/owncloud`
-3. `brew install qtkeychain cmake`
-4. `brew install openssl`
-5. Download the newest Sparkle from https://sparkle-project.org/
-6. `mv Sparkle.framework ~/Library/Frameworks/`
-7. Install XCode 6.4 from http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
-8. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-9. Generate Sparkle keys: `./bin/generate_keys`. Keep those, if you loose it you won't be able to deploy updates anymore.
-10. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
-11. Install http://s.sudre.free.fr/Software/Packages/about.html
+2. `brew install openssl wget cmake`
+3. `wget https://github.com/sparkle-project/Sparkle/releases/download/1.14.0/Sparkle-1.14.0.tar.bz2`
+4. `tar -xf Sparkle-1.14.0.tar.bz2`
+5. `mv Sparkle.framework ~/Library/Frameworks/`
+6. Install XCode 6.4 from http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
+7. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+8. Generate Sparkle keys: `./bin/generate_keys`. Keep those, if you loose it you won't be able to deploy updates anymore.
+9. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
+10. Install http://s.sudre.free.fr/Software/Packages/about.html
 
 ### Compile Qt
 
