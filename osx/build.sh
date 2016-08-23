@@ -9,7 +9,7 @@ sudo make install
 
 # Build the client
 cd ~
-cp client-theming/osx/dsa_pub.pem client/admin/osx/sparkle/
+cp client_theming/osx/dsa_pub.pem client/admin/osx/sparkle/
 rm -rf build-mac
 mkdir build-mac
 cd build-mac
