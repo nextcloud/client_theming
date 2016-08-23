@@ -2,6 +2,12 @@
 export PATH=/usr/local/Qt-5.4.0/bin/:$PATH
 export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 
+# Cleanup
+cd ~
+sudo rm -rf build-mac
+sudo rm -rf client
+sudo rm -rf install
+
 # Clone the desktop client code
 cd ~
 git clone --recursive https://github.com/owncloud/client.git
@@ -24,8 +30,3 @@ cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/
 make
 sudo make install
 sudo ./admin/osx/create_mac.sh ../install/ . 3EA9DE660A8EE9ED0852BEEEA29269A22E97D427
-
-# Cleanup
-cd ~
-sudo rm -rf build-mac
-sudo rm -rf client
