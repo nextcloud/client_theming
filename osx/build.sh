@@ -3,7 +3,7 @@ export PATH=/usr/local/Qt-5.4.0/bin/:$PATH
 export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 
 # Build qtkeychain
-cd ~/client/
+cd ~/client/src/3rdparty/qtkeychain
 cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.8 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.4/clang_64 .
 sudo make install
 
