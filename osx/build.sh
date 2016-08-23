@@ -2,6 +2,13 @@
 export PATH=/usr/local/Qt-5.4.0/bin/:$PATH
 export OPENSSL_ROOT_DIR=$(brew --prefix openssl)
 
+# Clone the desktop client code
+cd ~
+git clone --recursive https://github.com/owncloud/client.git
+cd client
+git checkout v2.2.3
+git submodule update --recursive
+
 # Build qtkeychain
 cd ~/client/src/3rdparty/qtkeychain
 cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.8 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.4/clang_64 .
@@ -17,3 +24,8 @@ cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/
 make
 make install
 ./admin/osx/create_mac.sh ../install/ . 3EA9DE660A8EE9ED0852BEEEA29269A22E97D427
+
+# Cleanup
+cd ~
+rm -rf build-mac
+rm -rf client
