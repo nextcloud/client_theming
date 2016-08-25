@@ -1,5 +1,5 @@
 # nextcloud desktop client
-:computer: theme and build instructions for the nextcloud dekstop client
+:computer: theme and build instructions for the nextcloud desktop client
 
 Based on https://github.com/owncloud/client/blob/master/doc/building.rst
 
