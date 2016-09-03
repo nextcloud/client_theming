@@ -7,10 +7,7 @@ Based on https://github.com/owncloud/client/blob/master/doc/building.rst
 
 Run:
 ```bash
-git submodule update --init
-cd client
-git submodule update --init
-cd ...
+git submodule update --init --recursive
 ```
 
 ## Building on Linux
