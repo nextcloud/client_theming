@@ -12,3 +12,5 @@ mkdir build-linux
 cd build-linux
 cmake -D CMAKE_INSTALL_PREFIX=/app -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
 make
+find /app
+exit 0
