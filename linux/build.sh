@@ -32,7 +32,7 @@ LOWERAPP=${APP,,}
 GIT_REV=$(git rev-parse --short HEAD)
 echo $GIT_REV
 
-mkdir -p $HOME/$APP/$APP.AppDir/usr/bin/
+mkdir -p $HOME/$APP/$APP.AppDir/usr/
 
 cd $HOME/$APP/
 
@@ -44,7 +44,7 @@ cd $APP.AppDir
 sudo chown -R $USER /app/
 sed -i -e 's|/app|././|g' /app/bin/nextcloud
 
-cp -r /app/* ./
+cp -r /app/* ./usr/
 
 ########################################################################
 # Copy desktop and icon file to AppDir for AppRun to pick them up
@@ -81,6 +81,7 @@ rm -rf usr/lib/cmake || true
 rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
 strip usr/bin/* usr/lib/* || true
+rm -rf app/ || true
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
