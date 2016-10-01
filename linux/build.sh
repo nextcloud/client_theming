@@ -69,9 +69,6 @@ cp -r $PLUGINS/* ./usr/lib/qt4/plugins/
 
 copy_deps
 
-# Symlink needed for Fedora
-ln -s /usr/lib/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
-
 ########################################################################
 # Delete stuff that should not go into the AppImage
 ########################################################################
@@ -88,6 +85,9 @@ find . -name '*.la' | xargs -i rm {}
 strip usr/bin/* usr/lib/* || true
 rm -rf app/ || true
 find . -name libcrypto* | xargs -i rm {}
+
+# Symlink needed for Fedora
+ln -s /usr/lib/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
