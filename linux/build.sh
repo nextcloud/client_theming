@@ -28,7 +28,7 @@ find /app
 
 export ARCH=$(arch)
 
-APP=NextCloud
+APP=Nextcloud
 LOWERAPP=${APP,,}
 
 GIT_REV=$(git rev-parse --short HEAD)
