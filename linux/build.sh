@@ -69,6 +69,9 @@ cp -r $PLUGINS/* ./usr/lib/qt4/plugins/
 
 copy_deps
 
+# Symlink needed for Fedora
+ln -s /usr/lib/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
+
 ########################################################################
 # Delete stuff that should not go into the AppImage
 ########################################################################
