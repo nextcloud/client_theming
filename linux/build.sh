@@ -87,7 +87,7 @@ rm -rf app/ || true
 find . -name libcrypto* | xargs -i rm {}
 
 # Symlink needed for Fedora
-ln -s /usr/lib/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
+ln -s  /usr/lib64/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
