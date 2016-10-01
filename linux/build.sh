@@ -44,7 +44,7 @@ cd $APP.AppDir
 sudo chown -R $USER /app/
 sed -i -e 's|/app|././|g' /app/bin/nextcloud
 
-cp /app/bin/nextcloud ./usr/bin/
+cp -r /app/* ./
 
 ########################################################################
 # Copy desktop and icon file to AppDir for AppRun to pick them up
