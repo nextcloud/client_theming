@@ -4,4 +4,4 @@ dist: trusty
 language: cpp
 
 install:
-  - linux/build.sh
+  - bash -ex linux/build.sh
