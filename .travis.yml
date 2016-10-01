@@ -1,0 +1,10 @@
+os: linux
+sudo: true
+
+script:
+  - git submodule update --init --recursive
+  - mkdir build-linux
+  - cd build-linux
+  - cmake -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
+  - make
+  - sudo make install
