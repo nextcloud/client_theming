@@ -84,6 +84,7 @@ rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
 strip usr/bin/* usr/lib/* || true
 rm -rf app/ || true
+find . -name libcrypto* | xargs -i rm {}
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
