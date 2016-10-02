@@ -84,10 +84,8 @@ rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
 strip usr/bin/* usr/lib/* || true
 rm -rf app/ || true
-find . -name libcrypto* | xargs -i rm {}
-
-# Symlink needed for Fedora
-ln -s  /usr/lib64/libcrypto.so.10 ./usr/lib/libcrypto.so.1.0.0
+# Copy, since libssl must be in sync with libcrypto
+cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/ 
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
