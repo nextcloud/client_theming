@@ -12,8 +12,8 @@
  * for more details.
  */
 
-#ifndef NEXTCLOUD_THEME_H
-#define NEXTCLOUD_THEME_H
+#ifndef STOWPAL_THEME_H
+#define STOWPAL_THEME_H
 
 #include "theme.h"
 
@@ -29,28 +29,28 @@
 namespace OCC {
 
 /**
- * @brief The NextcloudTheme class
+ * @brief The StowpalTheme class
  * @ingroup libsync
  */
-class NextcloudTheme : public Theme
+class StowpalTheme : public Theme
 {
 
 public:
-    NextcloudTheme() {};
+    StowpalTheme() {};
 
     QString configFileName() const  {
-        return QLatin1String("nextcloud.cfg");
+        return QLatin1String("stowpal.cfg");
     }
 
     QIcon trayFolderIcon( const QString& ) const  {
-        return themeIcon( QLatin1String("Nextcloud-icon") );
+        return themeIcon( QLatin1String("Stowpal-icon") );
     }
     QIcon applicationIcon() const  {
-        return themeIcon( QLatin1String("Nextcloud-icon") );
+        return themeIcon( QLatin1String("Stowpal-icon") );
     }
 
     QString updateCheckUrl() const {
-        return QLatin1String("https://updates.nextcloud.org/client/");
+        return QLatin1String("https://stowpal.com/updates/client/");
     }
 
     QString helpUrl() const {
@@ -92,4 +92,4 @@ public:
 };
 
 }
-#endif // NEXTCLOUD_THEME_H
+#endif // STOWPAL_THEME_H

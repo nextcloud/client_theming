@@ -1,16 +1,16 @@
-set( APPLICATION_NAME       "Nextcloud" )
-set( APPLICATION_EXECUTABLE "nextcloud" )
-set( APPLICATION_DOMAIN     "nextcloud.com" )
-set( APPLICATION_VENDOR     "Nextcloud GmbH" )
-set( APPLICATION_UPDATE_URL "https://updates.nextcloud.org/client/" CACHE string "URL for updater" )
+set( APPLICATION_NAME       "Stowpal" )
+set( APPLICATION_EXECUTABLE "stowpal" )
+set( APPLICATION_DOMAIN     "stowpal.com" )
+set( APPLICATION_VENDOR     "Bulmag AD" )
+set( APPLICATION_UPDATE_URL "https://stowpal.com/updates/client/" CACHE string "URL for updater" )
 
-set( THEME_CLASS            "NextcloudTheme" )
-set( APPLICATION_REV_DOMAIN "com.nextcloud.desktopclient" )
+set( THEME_CLASS            "StowpalTheme" )
+set( APPLICATION_REV_DOMAIN "com.stowpal.desktopclient" )
 set( WIN_SETUP_BITMAP_PATH  "${OEM_THEME_DIR}/win" )
 
 set( MAC_INSTALLER_BACKGROUND_FILE "${OEM_THEME_DIR}/osx/installer-background.png" CACHE STRING "The MacOSX installer background image")
 
-set( THEME_INCLUDE          "${OEM_THEME_DIR}/nextcloudtheme.h" )
+set( THEME_INCLUDE          "${OEM_THEME_DIR}/stowpaltheme.h" )
 # set( APPLICATION_LICENSE    "${OEM_THEME_DIR}/license.txt )
 
 option( WITH_CRASHREPORTER "Build crashreporter" OFF )
