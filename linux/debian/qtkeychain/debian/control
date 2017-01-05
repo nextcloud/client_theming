@@ -1,0 +1,23 @@
+Source: qtkeychain
+Section: contrib/devel
+Priority: optional
+Maintainer: István Váradi <ivaradi@varadiistvan.hu>
+Build-Depends: debhelper (>=9), cdbs, cmake, libqt4-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/frankosterfeld/qtkeychain
+#Vcs-Git: git://anonscm.debian.org/collab-maint/nextcloud-client.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/nextcloud-client.git
+
+Package: libqtkeychain1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Cross platform password store library
+ Platform-independent Qt API for storing passwords securely.
+
+Package: qtkeychain-dev
+Architecture: any
+Section: contrib/libdevel
+Depends: libqtkeychain1 (=${binary:Version}), ${misc:Depends}
+Description: Cross platform password store library development files
+ Development files for the platform-independent Qt API for storing
+ passwords securely.

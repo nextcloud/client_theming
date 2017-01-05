@@ -1,0 +1,36 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ nextcloud-client (2.2.4-1) yakkety; urgency=medium
+ .
+   * Initial release.
+Author: István Váradi <ivaradi@varadiistvan.hu>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2016-12-20
+
+--- nextcloud-client-2.2.4.orig/client/mirall.desktop.in
++++ nextcloud-client-2.2.4/client/mirall.desktop.in
+@@ -5,7 +5,7 @@ Exec=@APPLICATION_EXECUTABLE@
+ Name=@APPLICATION_NAME@ desktop sync client 
+ Comment=@APPLICATION_NAME@ desktop synchronization client
+ GenericName=Folder Sync
+-Icon=@APPLICATION_EXECUTABLE@
++Icon=@APPLICATION_SHORTNAME@
+ Keywords=@APPLICATION_NAME@;syncing;file;sharing;
+ X-GNOME-Autostart-Delay=3
+ 

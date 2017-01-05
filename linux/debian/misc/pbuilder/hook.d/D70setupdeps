@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cat /etc/apt/sources.list
+(cd ${HOME}/pbuilder/deps; apt-ftparchive packages . > Packages)
+apt-get update
