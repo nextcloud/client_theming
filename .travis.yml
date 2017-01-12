@@ -1,0 +1,7 @@
+os: linux
+sudo: true
+dist: trusty
+language: cpp
+
+script:
+  - bash -ex linux/build.sh
