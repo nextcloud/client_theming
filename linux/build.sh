@@ -65,7 +65,7 @@ cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
 # FIXME: How to find out which subset of plugins is really needed?
 mkdir -p ./usr/lib/qt5/plugins/
 PLUGINS=/usr/lib/x86_64-linux-gnu/qt5/plugins/
-cp -r $PLUGINS/* ./usr/lib/qt5/plugins/
+cp -r $PLUGINS/{bearer,generic,imageformats,platforminputcontexts,platforms,platformthemes} ./usr/lib/qt5/plugins/
 
 copy_deps
 
