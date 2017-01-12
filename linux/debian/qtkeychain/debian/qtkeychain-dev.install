@@ -1,0 +1,3 @@
+usr/include
+usr/lib/*/cmake
+usr/lib/*/libqtkeychain.so
