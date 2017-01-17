@@ -36,3 +36,17 @@ Architecture: all
 Depends: ${misc:Depends}
 Description: Nextcloud client internatialization files
  The translation files.
+
+Package: nextcloud-client-nautilus
+Architecture: all
+Depends: nextcloud-client (=${binary:Version}), libnextcloudsync0, python-nautilus, nautilus
+Description: Nautilus plugin for Nextcloud
+  This package contains a Nautilus plugin to display
+  synchronization status icons for Nextcloud files.
+
+Package: nextcloud-client-nemo
+Architecture: all
+Depends: nextcloud-client (=${binary:Version}), libnextcloudsync0, python-nemo, nemo
+Description: Nemo plugin for Nextcloud
+  This package contains a Nemo plugin to display
+  synchronization status icons for Nextcloud files.
