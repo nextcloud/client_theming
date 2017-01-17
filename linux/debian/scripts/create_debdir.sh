@@ -3,6 +3,7 @@
 set -e -u
 
 scriptdir=`dirname $0`
+scriptdir=`cd "${scriptdir}" && pwd`
 
 . "${scriptdir}/config.sh"
 
@@ -48,6 +49,7 @@ rm -rf "${packagedir}"
 mkdir -p "${packagedir}"
 
 echo "Updating submodules"
+commit=`cd "${GITROOTS}/${package}"; git rev-parse HEAD`
 (cd "${GITROOTS}/${package}"; git checkout "${tag}"; git submodule update --recursive --init)
 
 echo "Copying sources"
@@ -61,6 +63,10 @@ else
     tar cjf "${origtar}" -C "${BUILDAREA}" "${package}_${version}"
 fi
 
+echo "Restoring Git state"
+(cd "${GITROOTS}/${package}"; git checkout "${commit}")
+cd "${scriptdir}"
+
 echo "Copying Debian files"
 mkdir -p "${packagedir}/debian"
 tar cf - -C "${scriptdir}/../${package}/debian" . | tar xf - -C "${packagedir}/debian"
@@ -68,5 +74,3 @@ tar cf - -C "${scriptdir}/../${package}/debian" . | tar xf - -C "${packagedir}/d
 if test -d "${scriptdir}/../${package}/debian.${distribution}"; then
     tar cf - -C "${scriptdir}/../${package}/debian.${distribution}" . | tar xf - -C "${packagedir}/debian"
 fi
-
-echo "Applying patches"
