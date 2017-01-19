@@ -1,3 +1,9 @@
+nextcloud-client (2.2.4-1.2~trusty1) trusty; urgency=medium
+
+  * Fixed appname in the Nemo syncstate extension.
+
+ -- István Váradi <ivaradi@varadiistvan.hu>  Thu, 19 Jan 2017 16:46:50 +0100
+
 nextcloud-client (2.2.4-1.1~trusty1) trusty; urgency=medium
 
   * Added Nautilus and Nemo syncstate extensions.
