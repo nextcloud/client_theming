@@ -1,0 +1,17 @@
+nextcloud-client (2.2.4-1.2) stable; urgency=medium
+
+  * Fixed appname in the Nemo syncstate extension.
+
+ -- István Váradi <ivaradi@varadiistvan.hu>  Thu, 19 Jan 2017 16:46:50 +0100
+
+nextcloud-client (2.2.4-1.1) stable; urgency=medium
+
+  * Added Nautilus and Nemo syncstate extensions.
+
+ -- István Váradi <ivaradi@varadiistvan.hu>  Tue, 17 Jan 2017 19:55:32 +0100
+
+nextcloud-client (2.2.4-1.0) stable; urgency=medium
+
+  * Initial release.
+
+ -- István Váradi <ivaradi@varadiistvan.hu>  Wed, 14 Dec 2016 20:07:46 +0100
