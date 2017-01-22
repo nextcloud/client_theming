@@ -17,7 +17,9 @@ rm -f "${resultdir}/"*
 
 source "${HOME}/.pbuilderrc"
 
-pbuilder-dist "${distribution}" build --othermirror "${OTHERMIRROR}" "$@" "${BUILDAREA}/qtkeychain_${QTKEYCHAIN_FULL_VERSION}.dsc"
+dscversion=`echo ${QTKEYCHAIN_FULL_VERSION} | sed "s:@DISTRIBUTION@:${distribution}:g"`
+pbuilder-dist "${distribution}" build --othermirror "${OTHERMIRROR}" --debbuildopts "-j${NUMCPUS}" "$@" "${BUILDAREA}/qtkeychain_${dscversion}.dsc"
 cp "${resultdir}/"*.deb "${PBUILDER_DEPS}"
 
-pbuilder-dist "${distribution}" build --othermirror "${OTHERMIRROR}" "$@" "${BUILDAREA}/nextcloud-client_${NEXTCLOUD_CLIENT_FULL_VERSION}.dsc"
+dscversion=`echo ${NEXTCLOUD_CLIENT_FULL_VERSION} | sed "s:@DISTRIBUTION@:${distribution}:g"`
+pbuilder-dist "${distribution}" build --othermirror "${OTHERMIRROR}" --debbuildopts "-j${NUMCPUS}" "$@" "${BUILDAREA}/nextcloud-client_${dscversion}.dsc"
