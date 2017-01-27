@@ -1,3 +1,4 @@
 fix-application-icon-name.patch
 fix-synctstate-nemo-branding.patch
 add-caja-plugin.patch
+application-specific-syncstate-plugin-name.patch
