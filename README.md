@@ -17,7 +17,7 @@ Run:
 ```bash
 mkdir build-linux
 cd build-linux
-cmake -D OEM_THEME_DIR=$(realpath `pwd`/../nextcloudtheme)  ../client
+cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme)  ../client
 make
 make install
 ```
