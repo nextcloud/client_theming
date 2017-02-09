@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get -y build-dep owncloud-client
 sudo apt-get install -y qt58base
 
-. /opt/qt58/bin/qt58-env.sh
+. /opt/qt58/bin/qt58-env.sh || true
 
 git submodule update --init --recursive
 mkdir build-linux
