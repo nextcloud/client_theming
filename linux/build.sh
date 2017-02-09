@@ -115,7 +115,7 @@ VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
 cd .. # Go out of AppImage
 
 mkdir -p ../out/
-generate_appimage
+generate_type2_appimage
 
 ########################################################################
 # Upload the AppDir
