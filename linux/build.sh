@@ -11,7 +11,7 @@ wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04
 sudo apt-key add - < Release.key
 sudo apt-get update
 sudo apt-get -y build-dep owncloud-client
-sudo apt-get install -y qt58base
+sudo apt-get install -y qt58base qt58webengine
 
 . /opt/qt58/bin/qt58-env.sh || true
 
