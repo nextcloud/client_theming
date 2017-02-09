@@ -73,7 +73,7 @@ copy_deps
 # Delete stuff that should not go into the AppImage
 ########################################################################
 
-t# Delete dangerous libraries; see
+# Delete dangerous libraries; see
 # https://github.com/probonopd/AppImages/blob/master/excludelist
 delete_blacklisted
 
