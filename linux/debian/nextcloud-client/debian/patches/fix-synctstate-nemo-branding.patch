@@ -1,0 +1,44 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ nextcloud-client (2.2.4-1.0~trusty1) trusty; urgency=medium
+ .
+   * Initial release.
+Author: István Váradi <ivaradi@varadiistvan.hu>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- nextcloud-client-2.2.4.orig/client/shell_integration/nautilus/CMakeLists.txt
++++ nextcloud-client-2.2.4/client/shell_integration/nautilus/CMakeLists.txt
+@@ -3,7 +3,6 @@
+ if( UNIX AND NOT APPLE )
+ 
+     configure_file(syncstate.py syncstate.py COPYONLY)
+-    configure_file(syncstate.py syncstate_nemo.py COPYONLY)
+ 
+     # Call the setupappname.sh script to set the custom app name.
+     set (cmd "${CMAKE_CURRENT_SOURCE_DIR}/setappname.sh")
+--- nextcloud-client-2.2.4.orig/client/shell_integration/nautilus/createnemoplugin.sh
++++ nextcloud-client-2.2.4/client/shell_integration/nautilus/createnemoplugin.sh
+@@ -2,5 +2,5 @@
+ 
+ # this script creates a plugin for nemo, just be replacing
+ # all occurences of Nautilus with Nemo.
+-
++cp syncstate.py syncstate_nemo.py
+ sed -i.org -e 's/autilus/emo/g' syncstate_nemo.py
