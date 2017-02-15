@@ -1,0 +1,62 @@
+name: nextcloud-client
+version: 2.2.4-git
+summary: nextcloud desktop client
+icon: ../client/theme/colored/owncloud-icon.svg
+description: |
+  The ownCloud Desktop Client is a tool to synchronize files from ownCloud
+  Server with your computer.
+
+grade: devel
+confinement: strict
+
+parts:
+  client:
+    plugin: cmake
+    source: ../
+    source-subdir: client
+    build-packages:
+      - libqt5webkit5-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - pkg-config
+      - qt5keychain-dev
+      - qttools5-dev-tools
+    configflags:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_INSTALL_LIBDIR=/usr/lib
+      - -DDOEM_THEME_DIR=../src/nextcloudtheme
+    after:
+      - desktop-qt5
+      - indicator-qt5
+
+  desktop-qt5:
+    stage: [ -./**/lib/*/qt5/**/libappmenu-qt5.so ]
+
+  snapd-xdg-open:
+    source: https://github.com/ubuntu-core/snapd-xdg-open.git
+    source-depth: 1
+    plugin: dump
+    organize:
+      data/xdg-open: bin/xdg-open
+    prime:
+      - bin
+
+apps:
+  nextcloud-client:
+    command: |
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/owncloud:$LD_LIBRARY_PATH
+      desktop-launch owncloud
+    desktop: usr/share/applications/owncloud.desktop
+    plugs:
+      - unity7
+      - home
+      - network
+
+  cmd:
+    command: |
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/owncloud:$LD_LIBRARY_PATH
+      desktop-launch owncloudcmd
+    plugs:
+      - unity7
+      - home
+      - network
