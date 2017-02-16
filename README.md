@@ -41,37 +41,17 @@ make install
 
 ### Compile Qt
 
-Because the desktop client comes with a lot of custom patches you have to download the Qt 5.4.0 source and then apply all of them.
-
-In addition to below patches you also need to apply https://codereview.qt-project.org/#/c/121545/
+Because the desktop client comes with some custom patches you have to download the Qt 5.6.2 source and then apply all of them. Make sure to adjust <client> with the login to the cloned client repository.
 
 ```bash
 cd /tmp/
-wget http://download.qt.io/official_releases/qt/5.4/5.4.0/single/qt-everywhere-opensource-src-5.4.0.tar.gz
-tar -xf qt-everywhere-opensource-src-5.4.0.tar.gz
-cd /tmp/qt-everywhere-opensource-src-5.4.0/qtbase
-git apply --reject /Users/builder/client/admin/qt/patches/0001-Fix-crash-on-Mac-OS-if-PAC-URL-contains-non-URL-lega.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0002-Fix-possible-crash-when-passing-an-invalid-PAC-URL.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0003-Fix-crash-if-PAC-script-retrieval-returns-a-null-CFD.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0004-Cocoa-Fix-systray-SVG-icons.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0005-OSX-Fix-disapearing-tray-icon.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0006-Fix-force-debug-info-with-macx-clang_NOUPSTREAM.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0007-QNAM-Fix-upload-corruptions-when-server-closes-conne.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0007-X-Network-Fix-up-previous-corruption-patch.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0008-QNAM-Fix-reply-deadlocks-on-server-closing-connectio.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0009-QNAM-Assign-proper-channel-before-sslErrors-emission.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0010-Don-t-let-closed-http-sockets-pass-as-valid-connecti.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0011-Make-sure-to-report-correct-NetworkAccessibility.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0012-Make-sure-networkAccessibilityChanged-is-emitted.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0013-Make-UnknownAccessibility-not-block-requests.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0015-Remove-legacy-platform-code-in-QSslSocket-for-OS-X-1.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0016-QSslSocket-evaluate-CAs-in-all-keychain-categories.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0017-Win32-Re-init-system-proxy-if-internet-settings-chan.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0018-Windows-Do-not-crash-if-SSL-context-is-gone-after-ro.patch
-git apply --reject /Users/builder/client/admin/qt/patches/0019-Ensure-system-tray-icon-is-prepared-even-when-menu-bar.patch
+wget http://download.qt.io/official_releases/qt/5.6/5.6.2/single/qt-everywhere-opensource-src-5.6.2.tar.gz
+tar -xf qt-everywhere-opensource-src-5.6.2.tar.gz
+cd /tmp/qt-everywhere-opensource-src-5.6.2/qtbase
+git apply <client>/admin/qt/patches/qtbase/*.patch
 cd ..
 ./configure -sdk macosx10.9
-make -j7
+make -j2
 sudo make -j1 install
 ```
 
