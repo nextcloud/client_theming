@@ -50,3 +50,10 @@ Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-nemo,
 Description: Nemo plugin for Nextcloud
   This package contains a Nemo plugin to display
   synchronization status icons for Nextcloud files.
+
+Package: nextcloud-client-caja
+Architecture: all
+Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-caja, caja, ${misc:Depends}
+Description: Caja plugin for Nextcloud
+  This package contains a Caja plugin to display
+  synchronization status icons for Nextcloud files.
