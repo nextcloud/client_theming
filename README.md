@@ -24,11 +24,15 @@ git submodule update --init --recursive
 Run:
 
 ```bash
+# If building on Ubuntu
+sudo apt-get install libsqlite3-dev qt5-default libqt5webkit5-dev qt5keychain-dev libssl-dev
+
+# All distributions
 mkdir build-linux
 cd build-linux
 cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme)  ../client
 make
-make install
+sudo make install
 ```
 
 ## Building on OSX
