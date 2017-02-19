@@ -3,6 +3,13 @@
 
 Based on https://github.com/owncloud/client/blob/master/doc/building.rst
 
+## Installing on Ubuntu
+```bash
+sudo add-apt-repository ppa:nextcloud-devs/client
+sudo apt-get update
+sudo apt-get install nextcloud-client
+```
+
 ## Getting repository ready
 
 Run:
