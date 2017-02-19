@@ -1,7 +1,9 @@
-# nextcloud desktop client [![Build Status](https://travis-ci.org/nextcloud/client_theming.svg?branch=master)](https://travis-ci.org/nextcloud/client_theming) 
-:computer: theme and build instructions for the nextcloud desktop client
+# Nextcloud desktop client
+[![Build Status](https://travis-ci.org/nextcloud/client_theming.svg?branch=master)](https://travis-ci.org/nextcloud/client_theming)
 
-Based on https://github.com/owncloud/client/blob/master/doc/building.rst
+**Theme and build instructions for the [Nextcloud](https://nextcloud.com) desktop client.**
+
+Based on https://github.com/owncloud/client/blob/master/doc/building.rst 
 
 ## Installing on Ubuntu
 ```bash
