@@ -1,9 +1,9 @@
 name: nextcloud-client
 version: 2.2.4-git
-summary: nextcloud desktop client
-icon: ../client/theme/colored/owncloud-icon.svg
+summary: Nextcloud Desktop Client
+icon: ../nextcloudtheme/theme/colored/Nextcloud-icon.svg
 description: |
-  The ownCloud Desktop Client is a tool to synchronize files from ownCloud
+  The Nextcloud Desktop Client is a tool to synchronize files from Nextcloud
   Server with your computer.
 
 grade: devel
@@ -24,7 +24,7 @@ parts:
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_INSTALL_LIBDIR=/usr/lib
-      - -DDOEM_THEME_DIR=../src/nextcloudtheme
+      - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
     after:
       - desktop-qt5
       - indicator-qt5
