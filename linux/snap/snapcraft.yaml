@@ -45,9 +45,9 @@ parts:
 apps:
   nextcloud-client:
     command: |
-      env LD_LIBRARY_PATH=$SNAP/usr/lib/owncloud:$LD_LIBRARY_PATH
-      desktop-launch owncloud
-    desktop: usr/share/applications/owncloud.desktop
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
+      desktop-launch nextcloud
+    desktop: usr/share/applications/nextcloud.desktop
     plugs:
       - unity7
       - home
@@ -55,8 +55,8 @@ apps:
 
   cmd:
     command: |
-      env LD_LIBRARY_PATH=$SNAP/usr/lib/owncloud:$LD_LIBRARY_PATH
-      desktop-launch owncloudcmd
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
+      desktop-launch nextcloudcmd
     plugs:
       - unity7
       - home
