@@ -1,7 +1,36 @@
 os: linux
-sudo: true
 dist: trusty
-language: cpp
+sudo: required
+language: generic
+
+services:
+- docker
+
+env:
+  global:
+  - DOCKER_IMAGE=ubuntu:xenial
+  - SNAP_PRIME_ON_PULL_REQUEST=true
+  - SNAP_DEPLOY_CHANNEL=edge
+  - SNAPCRAFT_CONFIG_KEY=''
+  - SNAPCRAFT_CONFIG_IV=''
+
+  matrix:
+  - BUILD_TYPE=appimage
+  - BUILD_TYPE=snap
+  - BUILD_TYPE=snap ARCH=i386
+
+before_install:
+  - linux/travis-build.sh before_install
+
+install:
+  - linux/travis-build.sh install
 
 script:
-  - bash -ex linux/build.sh
+  - linux/travis-build.sh script
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: linux/travis-build.sh snap-deploy
+    on:
+      condition: $BUILD_TYPE = snap && -n "$SNAPCRAFT_CONFIG_KEY" && -n "$SNAPCRAFT_CONFIG_IV"
