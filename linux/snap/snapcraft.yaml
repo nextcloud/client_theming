@@ -52,6 +52,8 @@ apps:
       - unity7
       - home
       - network
+      - network-bind
+      - network-manager
 
   cmd:
     command: |
