@@ -15,6 +15,7 @@ parts:
     source: ../
     source-subdir: client
     build-packages:
+      - g++
       - libqt5webkit5-dev
       - libsqlite3-dev
       - libssl-dev
