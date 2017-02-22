@@ -39,7 +39,7 @@ parts:
   desktop-qt5:
     stage: [ -./**/lib/*/qt5/**/libappmenu-qt5.so ]
 
-  snapd-xdg-open:
+  xdg-open:
     source: https://github.com/ubuntu-core/snapd-xdg-open.git
     source-depth: 1
     plugin: dump
