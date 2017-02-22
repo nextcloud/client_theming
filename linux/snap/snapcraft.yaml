@@ -23,9 +23,15 @@ parts:
       - qt5keychain-dev
       - qttools5-dev-tools
     configflags:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DCMAKE_INSTALL_LIBDIR=/usr/lib
       - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
+
+      # XXX: This is an hack to have a kind of bind-mount with absolute prefix.
+      - -DCMAKE_INSTALL_PREFIX=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr
+      - -DCMAKE_INSTALL_LIBDIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib
+      - -DSYSCONF_INSTALL_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/etc
+    organize:
+      snap/nextcloud-client/current: .
+
     after:
       - desktop-qt5
       - indicator-qt5
