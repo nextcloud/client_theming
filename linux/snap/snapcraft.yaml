@@ -50,6 +50,8 @@ parts:
 
 apps:
   nextcloud-client:
+    aliases:
+      - nextcloud
     command: |
       env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
       desktop-launch nextcloud
@@ -62,6 +64,8 @@ apps:
       - network-manager
 
   cmd:
+    aliases:
+      - nextcloudcmd
     command: |
       env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
       desktop-launch nextcloudcmd
