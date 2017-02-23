@@ -25,6 +25,9 @@ before_install:
 install:
   - linux/travis-build.sh install
 
+before_script:
+  - linux/travis-build.sh before_script
+
 script:
   - linux/travis-build.sh script
 

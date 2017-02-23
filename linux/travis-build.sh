@@ -34,6 +34,17 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
     elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         docker_exec apt-get update -q
         docker_exec apt-get install -y snapcraft
+    elif [ "$TRAVIS_BUILD_STEP" == "before_script" ]; then
+        last_tag=$(git describe --tags --abbrev=0 | sed "s/^v\([0-9]\)/\1/")
+        snap_version=$last_tag
+
+        if [ -z "$TRAVIS_TAG" ]; then
+            rev_commit=$(git rev-parse --short HEAD)
+            snap_version=$last_tag+git${rev_commit}
+        fi
+
+        sed "s,^\(version:\)\([ ]*[0-9.a-z_-+]*\),\1 $snap_version," -i $(dirname $0)/snap/snapcraft.yaml
+        echo "Snap version is $snap_version"
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         snapcraft_action=''
         if [ -z "$TRAVIS_TAG" ] || [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
