@@ -5,6 +5,7 @@ set -xe
 
 TRAVIS_BUILD_STEP="$1"
 DOCKER_BUILDER_NAME='builder'
+THIS_PATH=$(dirname $0)
 
 if [ -z "$TRAVIS_BUILD_STEP" ]; then
     echo "No travis build step defined"
@@ -30,7 +31,7 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
     if [ "$TRAVIS_BUILD_STEP" == "before_install" ]; then
         if [ -n "$ARCH" ]; then DOCKER_IMAGE="$ARCH/$DOCKER_IMAGE"; fi
         docker run --name $DOCKER_BUILDER_NAME -e LANG=C.UTF-8 \
-		   -v $PWD:$PWD -w $PWD/$(dirname $0) -td $DOCKER_IMAGE
+                   -v $PWD:$PWD -w $PWD/$THIS_PATH -td $DOCKER_IMAGE
     elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         docker_exec apt-get update -q
         docker_exec apt-get install -y snapcraft
@@ -43,7 +44,8 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
             snap_version=$last_tag+git${rev_commit}
         fi
 
-        sed "s,^\(version:\)\([ ]*[0-9.a-z_-+]*\),\1 $snap_version," -i $(dirname $0)/snap/snapcraft.yaml
+        sed "s,^\(version:\)\([ ]*[0-9.a-z_-+]*\),\1 $snap_version," \
+            -i $THIS_PATH/snap/snapcraft.yaml
         echo "Snap version is $snap_version"
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         snapcraft_action=''
@@ -52,16 +54,22 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         fi
 
         docker_exec snapcraft $snapcraft_action
-    elif [ "$TRAVIS_BUILD_STEP" == "snap-deploy" ]; then
+    elif [ "$TRAVIS_BUILD_STEP" == "after_success" ]; then
+        exec $0 snap_transfer_deploy
+    elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
         set +x
         openssl aes-256-cbc -K $SNAPCRAFT_CONFIG_KEY \
             -iv $SNAPCRAFT_CONFIG_IV \
-            -in $PWD/$(dirname $0)/snap/.snapcraft/travis_snapcraft.cfg \
-            -out $PWD/$(dirname $0)/snap/.snapcraft/snapcraft.cfg -d
+            -in $THIS_PATH/snap/.snapcraft/travis_snapcraft.cfg \
+            -out $THIS_PATH/snap/.snapcraft/snapcraft.cfg -d
         set -x
 
-        ls *.snap &> /dev/null || docker_exec snapcraft
+        ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
         docker_exec snapcraft push *.snap --release edge
+    elif [ "$TRAVIS_BUILD_STEP" == "snap_transfer_deploy" ]; then
+        ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
+        snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
+        curl --progress-bar --upload-file "$snap" "https://transfer.sh/$(basename $snap)"
     fi
 else
     echo 'No $BUILD_TYPE defined'
