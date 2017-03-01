@@ -1,12 +1,12 @@
 name: nextcloud-client
 version: 2.2.4-git
-summary: Nextcloud Desktop Client
 icon: ../nextcloudtheme/theme/colored/Nextcloud-icon.svg
+summary: Nextcloud Desktop Client
 description: |
   The Nextcloud Desktop Client is a tool to synchronize files from Nextcloud
   Server with your computer.
 
-grade: devel
+grade: stable
 confinement: strict
 
 parts:
