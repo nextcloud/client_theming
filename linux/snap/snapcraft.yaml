@@ -34,10 +34,6 @@ parts:
 
     after:
       - desktop-qt5
-      - indicator-qt5
-
-  desktop-qt5:
-    stage: [ -./**/lib/*/qt5/**/libappmenu-qt5.so ]
 
   xdg-open:
     source: https://github.com/ubuntu-core/snapd-xdg-open.git
