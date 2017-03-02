@@ -1,5 +1,5 @@
 name: nextcloud-client
-version: 2.2.4-git
+version: 2.2.4+git
 icon: ../nextcloudtheme/theme/colored/Nextcloud-icon.svg
 summary: Nextcloud Desktop Client
 description: |
@@ -23,6 +23,7 @@ parts:
       - qt5keychain-dev
       - qttools5-dev-tools
     configflags:
+      - -DCMAKE_BUILD_TYPE=Release
       - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
 
       # XXX: This is an hack to have a kind of bind-mount with absolute prefix.
