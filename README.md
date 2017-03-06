@@ -52,14 +52,14 @@ If you are using Debian 8 install libssl-dev
 Then:
 
 ```bash
-    git clone https://github.com/nextcloud/client_theming.git
-    cd client_theming
-    git submodule update --init --recursive
-    mkdir build-linux
-    cd build-linux
-    cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme) -DCMAKE_INSTALL_PREFIX=/usr  ../client
-    make
-    sudo make install
+git clone https://github.com/nextcloud/client_theming.git
+cd client_theming
+git submodule update --init --recursive
+mkdir build-linux
+cd build-linux
+cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme) -DCMAKE_INSTALL_PREFIX=/usr  ../client
+make
+sudo make install
 ```
 
 ## Building on OSX
