@@ -1,0 +1,72 @@
+name: nextcloud-client
+version: 2.2.4+git
+icon: ../nextcloudtheme/theme/colored/Nextcloud-icon.svg
+summary: Nextcloud Desktop Client
+description: |
+  The Nextcloud Desktop Client is a tool to synchronize files from Nextcloud
+  Server with your computer.
+
+grade: stable
+confinement: strict
+
+parts:
+  client:
+    plugin: cmake
+    source: ../
+    source-subdir: client
+    build-packages:
+      - g++
+      - libqt5webkit5-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - pkg-config
+      - qt5keychain-dev
+      - qttools5-dev-tools
+    configflags:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
+
+      # XXX: This is an hack to have a kind of bind-mount with absolute prefix.
+      - -DCMAKE_INSTALL_PREFIX=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr
+      - -DCMAKE_INSTALL_LIBDIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib
+      - -DSYSCONF_INSTALL_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/etc
+    organize:
+      snap/nextcloud-client/current: .
+
+    after:
+      - desktop-qt5
+
+  xdg-open:
+    source: https://github.com/ubuntu-core/snapd-xdg-open.git
+    source-depth: 1
+    plugin: dump
+    organize:
+      data/xdg-open: bin/xdg-open
+    prime:
+      - bin
+
+apps:
+  nextcloud-client:
+    aliases:
+      - nextcloud
+    command: |
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
+      desktop-launch nextcloud
+    desktop: usr/share/applications/nextcloud.desktop
+    plugs:
+      - unity7
+      - home
+      - network
+      - network-bind
+      - network-manager
+
+  cmd:
+    aliases:
+      - nextcloudcmd
+    command: |
+      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
+      desktop-launch nextcloudcmd
+    plugs:
+      - unity7
+      - home
+      - network
