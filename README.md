@@ -35,6 +35,33 @@ make
 sudo make install
 ```
 
+### Building on Debian
+
+Install required packages. 
+
+    sudo apt-get install git libsqlite3-dev qt5-default libqt5webkit5-dev qt5keychain-dev libssl1.0-dev cmake build-essential libowncloudsync0
+
+If you are using Debian 9 install libssl1.0-dev
+
+    sudo apt-get install libssl1.0-dev 
+
+If you are using Debian 8 install libssl-dev
+
+    sudo apt-get install libssl-dev
+
+Then:
+
+```bash
+    git clone https://github.com/nextcloud/client_theming.git
+    cd client_theming
+    git submodule update --init --recursive
+    mkdir build-linux
+    cd build-linux
+    cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme) -DCMAKE_INSTALL_PREFIX=/usr  ../client
+    make
+    sudo make install
+```
+
 ## Building on OSX
 
 *Attention:* When building make sure to use an old Core 2 Duo build machine running OS X 10.10. Otherwise the resulting binary won't work properly for users of an older device. Have at least 180 GB free disk space when compiling Qt. Make sure your user is named "builder".
