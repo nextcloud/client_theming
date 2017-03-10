@@ -40,3 +40,8 @@ deploy:
     script: linux/travis-build.sh snap_store_deploy
     on:
       condition: $BUILD_TYPE = snap && -n "$SNAPCRAFT_CONFIG_KEY" && -n "$SNAPCRAFT_CONFIG_IV"
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)$/

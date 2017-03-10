@@ -121,5 +121,6 @@ generate_type2_appimage
 # Upload the AppDir
 ########################################################################
 
-transfer ../out/*
+wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+bash upload.sh ../out/*
 echo "AppImage has been uploaded to the URL above; use something like GitHub Releases for permanent storage"
