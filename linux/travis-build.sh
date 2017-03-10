@@ -30,7 +30,7 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
 
     if [ "$TRAVIS_BUILD_STEP" == "before_install" ]; then
         if [ -n "$ARCH" ]; then DOCKER_IMAGE="$ARCH/$DOCKER_IMAGE"; fi
-        docker run --name $DOCKER_BUILDER_NAME -e LANG=C.UTF-8 \
+        docker run --name $DOCKER_BUILDER_NAME -e LANG=C.UTF-8 -e TERM \
                    -v $PWD:$PWD -w $PWD/$THIS_PATH -td $DOCKER_IMAGE
     elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         docker_exec apt-get update -q
