@@ -55,7 +55,11 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
 
         docker_exec snapcraft $snapcraft_action
     elif [ "$TRAVIS_BUILD_STEP" == "after_success" ]; then
-        exec $0 snap_github_release
+        if [ -n "$GITHUB_TOKEN" ]; then
+            exec $0 snap_github_release
+        else
+            exec $0 snap_transfer_deploy
+        fi
     elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
         set +x
         openssl aes-256-cbc -K $SNAPCRAFT_CONFIG_KEY \
@@ -72,6 +76,10 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
         chmod +x upload.sh
         exec ./upload.sh "$snap"
+    elif [ "$TRAVIS_BUILD_STEP" == "snap_transfer_deploy" ]; then
+        ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
+        snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
+        curl --progress-bar --upload-file "$snap" "https://transfer.sh/$(basename $snap)"
     fi
 else
     echo 'No $BUILD_TYPE defined'
