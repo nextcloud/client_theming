@@ -16,7 +16,7 @@ mkdir build-linux
 cd build-linux
 cmake -D CMAKE_INSTALL_PREFIX=/app -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
 make
-find . 
+find .
 sudo make install
 find /app
 
@@ -121,5 +121,10 @@ generate_type2_appimage
 # Upload the AppDir
 ########################################################################
 
-transfer ../out/*
-echo "AppImage has been uploaded to the URL above; use something like GitHub Releases for permanent storage"
+if [ -n "$GITHUB_TOKEN" ]; then
+  wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  bash upload.sh ../out/*
+else
+  transfer ../out/*
+  echo "AppImage has been uploaded to the URL above; use something like GitHub Releases for permanent storage"
+fi
