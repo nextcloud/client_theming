@@ -25,16 +25,13 @@ parts:
     configflags:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
-
-      # XXX: This is an hack to have a kind of bind-mount with absolute prefix.
-      - -DCMAKE_INSTALL_PREFIX=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr
-      - -DCMAKE_INSTALL_LIBDIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib
-      - -DSYSCONF_INSTALL_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/etc
-    organize:
-      snap/nextcloud-client/current: .
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_INSTALL_LIBDIR=/usr/lib
+      - -DSYSCONF_INSTALL_DIR=/etc
 
     after:
       - desktop-qt5
+      - preload
 
   xdg-open:
     source: https://github.com/ubuntu-core/snapd-xdg-open.git
@@ -51,7 +48,8 @@ apps:
       - nextcloud
     command: |
       env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
-      desktop-launch nextcloud
+          FONTCONFIG_FILE=$SNAP/etc/fonts/fonts.conf
+          snapcraft-preload nextcloud
     desktop: usr/share/applications/nextcloud.desktop
     plugs:
       - unity7
@@ -65,7 +63,7 @@ apps:
       - nextcloudcmd
     command: |
       env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
-      desktop-launch nextcloudcmd
+          snapcraft-preload nextcloudcmd
     plugs:
       - unity7
       - home
