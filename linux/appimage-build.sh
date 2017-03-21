@@ -16,7 +16,7 @@ mkdir build-linux
 cd build-linux
 cmake -D CMAKE_INSTALL_PREFIX=/app -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
 make
-find . 
+find .
 sudo make install
 find /app
 
@@ -63,9 +63,8 @@ cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
 ########################################################################
 
 # FIXME: How to find out which subset of plugins is really needed?
-mkdir -p ./usr/lib/qt5/plugins/
-PLUGINS=/usr/lib/x86_64-linux-gnu/qt5/plugins/
-cp -r $PLUGINS/{bearer,generic,imageformats,platforminputcontexts,platforms,platformthemes} ./usr/lib/qt5/plugins/
+mkdir -p ./usr/lib/qt4/plugins/
+cp -r /usr/lib/x86_64-linux-gnu/qt4/plugins/* ./usr/lib/qt4/plugins/
 
 copy_deps
 
@@ -116,11 +115,16 @@ VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
 cd .. # Go out of AppImage
 
 mkdir -p ../out/
-generate_appimage
+generate_type2_appimage
 
 ########################################################################
 # Upload the AppDir
 ########################################################################
 
-transfer ../out/*
-echo "AppImage has been uploaded to the URL above; use something like GitHub Releases for permanent storage"
+if [ -n "$GITHUB_TOKEN" ]; then
+  wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  bash upload.sh ../out/*
+else
+  transfer ../out/*
+  echo "AppImage has been uploaded to the URL above; use something like GitHub Releases for permanent storage"
+fi
