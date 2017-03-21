@@ -34,7 +34,7 @@ Last-Update: 2016-12-20
  Keywords=@APPLICATION_NAME@;syncing;file;sharing;
  X-GNOME-Autostart-Delay=3
  
-@@ -701,160 +701,160 @@
+@@ -758,164 +758,164 @@
  Comment[oc]=@APPLICATION_NAME@ sincronizacion del client
  GenericName[oc]=Dorsièr de Sincronizacion
  Name[oc]=@APPLICATION_NAME@ sincronizacion del client
@@ -104,6 +104,11 @@ Last-Update: 2016-12-20
  Name[he]=@APPLICATION_NAME@ לקוח סנכרון שולחן עבודה 
 -Icon[he]=@APPLICATION_EXECUTABLE@
 +Icon[he]=@APPLICATION_SHORTNAME@
+ Comment[ia]=@APPLICATION_NAME@ cliente de synchronisation pro scriptorio
+ GenericName[ia]=Synchronisar Dossier 
+ Name[ia]=@APPLICATION_NAME@ cliente de synchronisation pro scriptorio
+-Icon[ia]=@APPLICATION_EXECUTABLE@
++Icon[ia]=@APPLICATION_SHORTNAME@
  Comment[id]=Klien sinkronisasi desktop @APPLICATION_NAME@
  GenericName[id]=Folder Sync
  Name[id]=Klien sync desktop @APPLICATION_NAME@

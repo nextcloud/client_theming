@@ -41,19 +41,19 @@ Package: nextcloud-client-nautilus
 Architecture: all
 Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-nautilus, nautilus, ${misc:Depends}
 Description: Nautilus plugin for Nextcloud
-  This package contains a Nautilus plugin to display
-  synchronization status icons for Nextcloud files.
+ This package contains a Nautilus plugin to display
+ synchronization status icons for Nextcloud files.
 
 Package: nextcloud-client-nemo
 Architecture: all
 Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-nemo, nemo, ${misc:Depends}
 Description: Nemo plugin for Nextcloud
-  This package contains a Nemo plugin to display
-  synchronization status icons for Nextcloud files.
+ This package contains a Nemo plugin to display
+ synchronization status icons for Nextcloud files.
 
 Package: nextcloud-client-caja
 Architecture: all
 Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-caja, caja, ${misc:Depends}
 Description: Caja plugin for Nextcloud
-  This package contains a Caja plugin to display
-  synchronization status icons for Nextcloud files.
+ This package contains a Caja plugin to display
+ synchronization status icons for Nextcloud files.
