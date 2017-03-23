@@ -23,8 +23,8 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: 2016-12-20
 
---- nextcloud-client-2.2.4.orig/client/mirall.desktop.in
-+++ nextcloud-client-2.2.4/client/mirall.desktop.in
+--- nextcloud-client-2.3.1.orig/client/mirall.desktop.in
++++ nextcloud-client-2.3.1/client/mirall.desktop.in
 @@ -5,7 +5,7 @@
  Name=@APPLICATION_NAME@ desktop sync client 
  Comment=@APPLICATION_NAME@ desktop synchronization client
@@ -34,7 +34,7 @@ Last-Update: 2016-12-20
  Keywords=@APPLICATION_NAME@;syncing;file;sharing;
  X-GNOME-Autostart-Delay=3
  
-@@ -758,164 +758,164 @@
+@@ -806,168 +806,168 @@
  Comment[oc]=@APPLICATION_NAME@ sincronizacion del client
  GenericName[oc]=Dorsièr de Sincronizacion
  Name[oc]=@APPLICATION_NAME@ sincronizacion del client
@@ -45,6 +45,11 @@ Last-Update: 2016-12-20
  Name[ar]=@APPLICATION_NAME@ زبون مزامنة مكتبي
 -Icon[ar]=@APPLICATION_EXECUTABLE@
 +Icon[ar]=@APPLICATION_SHORTNAME@
+ Comment[bg_BG]=@APPLICATION_NAME@ клиент за десктоп синхронизация
+ GenericName[bg_BG]=Синхронизиране на папката
+ Name[bg_BG]=@APPLICATION_NAME@ клиент десктоп синхронизация
+-Icon[bg_BG]=@APPLICATION_EXECUTABLE@
++Icon[bg_BG]=@APPLICATION_SHORTNAME@
  Comment[ca]=Client de sincronització d'escriptori @APPLICATION_NAME@
  GenericName[ca]=Sincronització de carpetes
  Name[ca]=Client de sincronització d'escriptori @APPLICATION_NAME@
@@ -85,18 +90,18 @@ Last-Update: 2016-12-20
  Name[de_DE]=@APPLICATION_NAME@ Desktop-Synchronisationsclient
 -Icon[de_DE]=@APPLICATION_EXECUTABLE@
 +Icon[de_DE]=@APPLICATION_SHORTNAME@
- Comment[bg_BG]=@APPLICATION_NAME@ клиент за десктоп синхронизация
- GenericName[bg_BG]=Синхронизиране на папката
- Name[bg_BG]=@APPLICATION_NAME@ клиент десктоп синхронизация
--Icon[bg_BG]=@APPLICATION_EXECUTABLE@
-+Icon[bg_BG]=@APPLICATION_SHORTNAME@
+ Comment[eu]=@APPLICATION_NAME@ mahaigaineko sinkronizazio bezeroa
+ GenericName[eu]=Karpetaren sinkronizazioa
+ Name[eu]=@APPLICATION_NAME@ mahaigaineko sinkronizazio bezeroa
+-Icon[eu]=@APPLICATION_EXECUTABLE@
++Icon[eu]=@APPLICATION_SHORTNAME@
  GenericName[fa]=همسان سازی پوشه‌ها
  Name[fa]=@APPLICATION_EXECUTABLE@ نسخه‌ی همسان سازی مشتری
 -Icon[fa]=@APPLICATION_EXECUTABLE@
 +Icon[fa]=@APPLICATION_SHORTNAME@
- Comment[fr]=@APPLICATION_NAME@ synchronisation du client
- GenericName[fr]=Dossier de Synchronisation
- Name[fr]=@APPLICATION_NAME@ synchronisation du client
+ Comment[fr]=Application de bureau pour synchroniser des dossiers avec un serveur @APPLICATION_NAME@
+ GenericName[fr]=Synchronisation de dossier
+ Name[fr]=Client de synchronisation @APPLICATION_NAME@
 -Icon[fr]=@APPLICATION_EXECUTABLE@
 +Icon[fr]=@APPLICATION_SHORTNAME@
  Comment[he]=@APPLICATION_NAME@ לקוח סנכון שולחן עבודה

@@ -1,0 +1,33 @@
+diff -ruN nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/CMakeLists.txt nextcloud-client_2.3.0/client/shell_integration/nautilus/CMakeLists.txt
+--- nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/CMakeLists.txt	2017-03-03 10:11:17.000000000 +0100
++++ nextcloud-client_2.3.0/client/shell_integration/nautilus/CMakeLists.txt	2017-03-23 19:11:30.031358428 +0100
+@@ -3,8 +3,6 @@
+ if( UNIX AND NOT APPLE )
+ 
+     configure_file(syncstate.py syncstate.py COPYONLY)
+-    configure_file(syncstate.py syncstate_nemo.py COPYONLY)
+-    configure_file(syncstate.py syncstate_caja.py COPYONLY)
+ 
+     # Call the setupappname.sh script to set the custom app name.
+     set (cmd "${CMAKE_CURRENT_SOURCE_DIR}/setappname.sh")
+diff -ruN nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/createcajaplugin.sh nextcloud-client_2.3.0/client/shell_integration/nautilus/createcajaplugin.sh
+--- nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/createcajaplugin.sh	2017-03-03 10:11:17.000000000 +0100
++++ nextcloud-client_2.3.0/client/shell_integration/nautilus/createcajaplugin.sh	2017-03-23 19:11:42.419312193 +0100
+@@ -2,6 +2,6 @@
+ 
+ # this script creates a plugin for caja, just by replacing
+ # all occurences of Nautilus with Caja (case sensitive).
+-
++cp syncstate.py syncstate_caja.py
+ sed -i.org -e 's/Nautilus/Caja/g' syncstate_caja.py
+ sed -i.org -e 's/nautilus/caja/g' syncstate_caja.py
+diff -ruN nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/createnemoplugin.sh nextcloud-client_2.3.0/client/shell_integration/nautilus/createnemoplugin.sh
+--- nextcloud-client_2.3.0.orig/client/shell_integration/nautilus/createnemoplugin.sh	2017-03-03 10:11:17.000000000 +0100
++++ nextcloud-client_2.3.0/client/shell_integration/nautilus/createnemoplugin.sh	2017-03-23 19:11:50.347282602 +0100
+@@ -2,5 +2,5 @@
+ 
+ # this script creates a plugin for nemo, just be replacing
+ # all occurences of Nautilus with Nemo.
+-
++cp syncstate.py syncstate_nemo.py
+ sed -i.org -e 's/autilus/emo/g' syncstate_nemo.py
