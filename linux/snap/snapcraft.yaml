@@ -31,7 +31,7 @@ parts:
 
     after:
       - desktop-qt5
-      - preload
+      - snapcraft-preload
 
   xdg-open:
     source: https://github.com/ubuntu-core/snapd-xdg-open.git
