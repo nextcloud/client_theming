@@ -46,10 +46,11 @@ apps:
   nextcloud-client:
     aliases:
       - nextcloud
-    command: |
-      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
-          FONTCONFIG_FILE=$SNAP/etc/fonts/fonts.conf
-          snapcraft-preload nextcloud
+
+    command: snapcraft-preload nextcloud
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
+      FONTCONFIG_FILE: $SNAP/etc/fonts/fonts.conf
     desktop: usr/share/applications/nextcloud.desktop
     plugs:
       - unity7
@@ -61,9 +62,9 @@ apps:
   cmd:
     aliases:
       - nextcloudcmd
-    command: |
-      env LD_LIBRARY_PATH=$SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
-          snapcraft-preload nextcloudcmd
+    command: snapcraft-preload nextcloudcmd
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/nextcloud:$LD_LIBRARY_PATH
     plugs:
       - unity7
       - home
