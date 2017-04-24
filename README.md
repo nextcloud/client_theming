@@ -12,6 +12,13 @@ sudo apt-get update
 sudo apt-get install nextcloud-client
 ```
 
+## Installing via Snap package ([supported distributions](https://snapcraft.io/docs/core/install))
+Download the [snap package](https://github.com/nextcloud/client_theming/releases/tag/continuous) for your architecture
+```bash
+sudo snap install --dangerous nextcloud-client_*.snap
+```
+The snap is confined, thus the synced folders will be by default in `~/snap/<version>/`, the client can access to the actual home, but not to the `.dotted` files, use symlinks if you need to.
+
 ## Getting repository ready
 
 Run:
@@ -33,6 +40,12 @@ cd build-linux
 cmake -D OEM_THEME_DIR=$(realpath ../nextcloudtheme)  ../client
 make
 sudo make install
+```
+
+### Building the snap
+```bash
+cd linux
+snapcraft
 ```
 
 ### Building on Debian
