@@ -92,9 +92,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         pwd
         ls -al
-        git submodules init
-        git submodules update
+        git submodule init
+        git submodule update
         cp -a linux/debian/nextcloud-client/debian .
+        debuild -S -uc -us
     fi
 else
     echo 'No $BUILD_TYPE defined'
