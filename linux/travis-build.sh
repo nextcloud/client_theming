@@ -84,7 +84,7 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
 elif [ "$BUILD_TYPE" == "debian" ]; then
     if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         sudo apt-get update -q
-        sudo apt-get install -y devscripts
+        sudo apt-get install -y devscripts cdbs
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         pwd
         ls -al
