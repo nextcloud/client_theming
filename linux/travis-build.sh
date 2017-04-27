@@ -82,18 +82,14 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         curl --progress-bar --upload-file "$snap" "https://transfer.sh/$(basename $snap)"
     fi
 elif [ "$BUILD_TYPE" == "debian" ]; then
-    if [ "$TRAVIS_BUILD_STEP" == "before_install" ]; then
-        if [ -n "$ARCH" ]; then DOCKER_IMAGE="$ARCH/$DOCKER_IMAGE"; fi
-        docker run --name $DOCKER_BUILDER_NAME -e LANG=C.UTF-8 -e TERM \
-                   -v $PWD:$PWD -w $PWD/$THIS_PATH -td $DOCKER_IMAGE
-    elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
-        docker_exec apt-get update -q
-        docker_exec apt-get install -y devscripts
+    if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
+        apt-get update -q
+        apt-get install -y devscripts
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         pwd
         ls -al
         cp -a linux/debian/nextcloud-client/debian .
-        debuild -S -uc -us
+        /usr/bin/debuild -S -uc -us
     fi
 else
     echo 'No $BUILD_TYPE defined'
