@@ -91,7 +91,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cd ..
         mv client_theming nextcloud-client_2.3.1
         #tar czf nextcloud-client_2.3.1.orig.tar.gz nextcloud-client_2.3.1
-        #cd nextcloud-client_2.3.1
+        cd nextcloud-client_2.3.1
         cp -a linux/debian/nextcloud-client/debian .
         /usr/bin/debuild -S -uc -us
     fi
