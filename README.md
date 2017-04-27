@@ -52,7 +52,7 @@ snapcraft
 
 Install required packages. 
 
-    sudo apt-get install git libsqlite3-dev qt5-default libqt5webkit5-dev qt5keychain-dev libssl1.0-dev cmake build-essential libowncloudsync0
+    sudo apt-get install git libsqlite3-dev qt5-default libqt5webkit5-dev qt5keychain-dev cmake build-essential libowncloudsync0
 
 If you are using Debian 9 install libssl1.0-dev
 
