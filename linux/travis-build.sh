@@ -81,6 +81,17 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
         curl --progress-bar --upload-file "$snap" "https://transfer.sh/$(basename $snap)"
     fi
+elif [ "$BUILD_TYPE" == "debian" ]; then
+    if [ "$TRAVIS_BUILD_STEP" == "before_install" ]; then
+        if [ -n "$ARCH" ]; then DOCKER_IMAGE="$ARCH/$DOCKER_IMAGE"; fi
+        docker run --name $DOCKER_BUILDER_NAME -e LANG=C.UTF-8 -e TERM \
+                   -v $PWD:$PWD -w $PWD/$THIS_PATH -td $DOCKER_IMAGE
+    elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
+        docker_exec apt-get update -q
+        docker_exec apt-get install -y
+    elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
+        ls -al
+    fi
 else
     echo 'No $BUILD_TYPE defined'
     exit 1
