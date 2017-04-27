@@ -88,12 +88,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
                    -v $PWD:$PWD -w $PWD/$THIS_PATH -td $DOCKER_IMAGE
     elif [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         docker_exec apt-get update -q
-        docker_exec apt-get install -y
+        docker_exec apt-get install -y devscripts
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         pwd
         ls -al
-        git submodule init
-        git submodule update
         cp -a linux/debian/nextcloud-client/debian .
         debuild -S -uc -us
     fi
