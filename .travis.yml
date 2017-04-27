@@ -15,9 +15,10 @@ env:
   - SNAPCRAFT_CONFIG_IV=''
 
   matrix:
-  - BUILD_TYPE=appimage
-  - BUILD_TYPE=snap
-  - BUILD_TYPE=snap ARCH=i386
+  #- BUILD_TYPE=appimage
+  #- BUILD_TYPE=snap
+  #- BUILD_TYPE=snap ARCH=i386
+  - BUILD_TYPE=debian
 
 before_install:
   - linux/travis-build.sh before_install
