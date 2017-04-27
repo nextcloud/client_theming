@@ -90,6 +90,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         docker_exec apt-get update -q
         docker_exec apt-get install -y
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
+        pwd
         ls -al
     fi
 else
