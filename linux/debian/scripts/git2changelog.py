@@ -35,7 +35,7 @@ def collectEntries(baseCommit, baseVersion):
 def genChangeLogEntries(f, entries, distribution):
     for (commit, name, email, date, revdate, subject, baseVersion) in entries:
         version = baseVersion + "-" + revdate + "~" + distribution + "1"
-        print >> f, "nextcloud-client (%s) %s; urgency = medium" % (version, distribution)
+        print >> f, "nextcloud-client (%s) %s; urgency=medium" % (version, distribution)
         print >> f
         print >> f, "  * " + subject
         print >> f
