@@ -94,7 +94,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         mv client_theming nextcloud-client_${basever}
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
         if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-experiments-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
-            tar czf nextcloud-client_${basever}.orig.tar.gz nextcloud-client_${basever}
+            tar cjf nextcloud-client_${basever}.orig.tar.bz2 nextcloud-client_${basever}
         fi
         cd nextcloud-client_${basever}
 
@@ -102,7 +102,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
 
-        /usr/bin/debuild -S -uc -us
+        /usr/bin/debuild -S
     fi
 else
     echo 'No $BUILD_TYPE defined'
