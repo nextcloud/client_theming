@@ -86,6 +86,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         sudo apt-get update -q
         sudo apt-get install -y devscripts cdbs
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
+        openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         #pwd
         #ls -al
         basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog`
