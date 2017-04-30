@@ -109,7 +109,8 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         /usr/bin/debuild -S ${origsourceopt}
 
         cd ..
-        dput ppa:ivaradi/nextcloud-client-daily nextcloud-client*.changes
+        ls -al
+        dput ppa:ivaradi/nextcloud-client-daily nextcloud-client*.changes > /dev/null
     fi
 else
     echo 'No $BUILD_TYPE defined'
