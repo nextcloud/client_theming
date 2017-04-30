@@ -86,13 +86,15 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         sudo apt-get update -q
         sudo apt-get install -y devscripts cdbs
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
-        pwd
-        ls -al
-        cd ..
+        #pwd
+        #ls -al
         basever=`linux/debian/nextcloud-client/debian/scripts/git2changelog.py /tmp/tmpchangelog`
+
+        cd ..
         mv client_theming nextcloud-client_${basever}
         tar czf nextcloud-client_2.3.1.orig.tar.gz nextcloud-client_2.3.1
         cd nextcloud-client_${basever}
+
         cp -a linux/debian/nextcloud-client/debian .
         cp /tmp/changelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
