@@ -89,7 +89,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         pwd
         ls -al
         cd ..
-        basever=`debian/scripts/git2changelog.py /tmp/tmpchangelog`
+        basever=`linux/debian/nextcloud-client/debian/scripts/git2changelog.py /tmp/tmpchangelog`
         mv client_theming nextcloud-client_${basever}
         tar czf nextcloud-client_2.3.1.orig.tar.gz nextcloud-client_2.3.1
         cd nextcloud-client_${basever}
