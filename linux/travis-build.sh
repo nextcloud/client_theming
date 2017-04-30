@@ -103,7 +103,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
 
-        /usr/bin/debuild -S --username "Nextcloud Developers (This key is to be used in automation scripts by Nextcloud) <ivaradi@varadiistvan.hu>"
+        /usr/bin/debuild -S -k 7D14AA7B
     fi
 else
     echo 'No $BUILD_TYPE defined'
