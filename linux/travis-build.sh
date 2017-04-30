@@ -92,7 +92,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
         cd ..
         mv client_theming nextcloud-client_${basever}
-        tar czf nextcloud-client_2.3.1.orig.tar.gz nextcloud-client_2.3.1
+        #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
+        if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-experiments-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+            tar czf nextcloud-client_${basever}.orig.tar.gz nextcloud-client_${basever}
+        fi
         cd nextcloud-client_${basever}
 
         cp -a linux/debian/nextcloud-client/debian .
