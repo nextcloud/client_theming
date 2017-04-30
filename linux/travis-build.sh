@@ -94,8 +94,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cd ..
         mv client_theming nextcloud-client_${basever}
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
+        origsourceopt=""
         if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-experiments-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
             tar cjf nextcloud-client_${basever}.orig.tar.bz2 nextcloud-client_${basever}
+            origsourceopt="-sa"
         fi
         cd nextcloud-client_${basever}
 
@@ -104,7 +106,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
 
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
-        /usr/bin/debuild -S
+        /usr/bin/debuild -S ${origsourceopt}
     fi
 else
     echo 'No $BUILD_TYPE defined'
