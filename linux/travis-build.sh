@@ -96,8 +96,9 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cd nextcloud-client_${basever}
 
         cp -a linux/debian/nextcloud-client/debian .
-        cp /tmp/changelog debian/changelog
+        cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
+
         /usr/bin/debuild -S -uc -us
     fi
 else
