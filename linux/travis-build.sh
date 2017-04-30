@@ -88,7 +88,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         #pwd
         #ls -al
-        basever=`linux/debian/nextcloud-client/debian/scripts/git2changelog.py /tmp/tmpchangelog`
+        basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog`
 
         cd ..
         mv client_theming nextcloud-client_${basever}
