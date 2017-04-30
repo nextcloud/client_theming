@@ -103,7 +103,8 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
 
-        /usr/bin/env DEBUILD_DPKG_BUILDPACKAGE_OPTS="-k7D14AA7B" /usr/bin/debuild -S
+        echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
+        /usr/bin/debuild -S
     fi
 else
     echo 'No $BUILD_TYPE defined'
