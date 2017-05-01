@@ -33,7 +33,6 @@ def collectEntries(baseCommit, baseVersion):
     return entries
 
 def genChangeLogEntries(f, entries, distribution):
-    upstreamVersion = None
     for (commit, name, email, date, revdate, subject, baseVersion) in entries:
         upstreamVersion = baseVersion + "-" + revdate
         version = upstreamVersion + "~" + distribution + "1"
@@ -43,11 +42,11 @@ def genChangeLogEntries(f, entries, distribution):
         print >> f
         print >> f, " -- %s <%s>  %s" % (name, email, date)
         print >> f
-    return version
+    return baseVersion
 
 if __name__ == "__main__":
     #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4")
     entries = collectEntries("dcac71898e7fda7ae4b149e2db25c178c90e7172", "2.3.1")
     with open(sys.argv[1], "wt") as f:
-        upstreamVersion = genChangeLogEntries(f, entries, distribution)
-        print upstreamVersion
+        baseVersion = genChangeLogEntries(f, entries, distribution)
+        print baseVersion
