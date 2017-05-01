@@ -11,11 +11,17 @@ versionTagRE = re.compile("^v([0-9]+((\.[0-9]+)+))(-(.+))?$")
 
 def collectEntries(baseCommit, baseVersion):
     entries = []
-    for line in subprocess.check_output(["git", "log",
-                                        "--format=%h%x09%an%x09%ae%x09%aD%x09%ad%x09%s",
-                                        "--date=format:%Y%m%d.%H%M%S",
-                                        "--author-date-order", "--reverse",
-                                        baseCommit + ".."]).splitlines():
+
+    args = ["git", "log",
+            "--format=%h%x09%an%x09%ae%x09%aD%x09%ad%x09%s",
+            "--date=format:%Y%m%d.%H%M%S",
+            "--author-date-order", "--reverse"]
+    try:
+        output = subprocess.check_output(args + [baseCommit + ".."])
+    except:
+        output = subprocess.check_output(args)
+
+    for line in output.splitlines():
         (commit, name, email, date, revdate, subject) = line.split("\t")
 
         for tag in subprocess.check_output(["git", "tag",
