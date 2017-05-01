@@ -131,7 +131,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
         ls -al
         for changes in nextcloud-client*_source.changes; do
-            dput ppa:ivaradi/nextcloud-client-daily $changes > /dev/null
+            dput ppa:ivaradi/nextcloud-client-exp $changes > /dev/null
         done
     fi
 else
