@@ -96,18 +96,18 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
         origsourceopt=""
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
-        if wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
-            cd nextcloud-client_${basever}
-            dpkg-source --commit . local-changes
-        else
+        if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
             tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
             origsourceopt="-sa"
             cd nextcloud-client_${basever}
         fi
+        cd nextcloud-client_${basever}
 
         cp -a linux/debian/nextcloud-client/debian .
         cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
+
+        dpkg-source --commit . local-changes
 
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
         /usr/bin/debuild -S ${origsourceopt}
