@@ -123,9 +123,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
             EDITOR=true dpkg-source --commit . local-changes
 
-            debuild -S ${origsourceopt}
-
-            debuild clean
+            debuild --pre-clean -S ${origsourceopt}
         done
 
         cd ..
