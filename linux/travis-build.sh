@@ -96,7 +96,8 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
         origsourceopt=""
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
-        if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+        #if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+        if ! wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
             tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
             origsourceopt="-sa"
             cd nextcloud-client_${basever}
