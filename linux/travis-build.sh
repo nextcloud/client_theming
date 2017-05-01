@@ -107,7 +107,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         cp /tmp/tmpchangelog debian/changelog
         cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
 
-        dpkg-source --commit . local-changes
+        EDITOR=true dpkg-source --commit . local-changes
 
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
         /usr/bin/debuild -S ${origsourceopt}
