@@ -45,8 +45,12 @@ def genChangeLogEntries(f, entries, distribution):
     return baseVersion
 
 if __name__ == "__main__":
+    distribution = sys.argv[2]
+
     #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4")
     entries = collectEntries("dcac71898e7fda7ae4b149e2db25c178c90e7172", "2.3.1")
+
+
     with open(sys.argv[1], "wt") as f:
         baseVersion = genChangeLogEntries(f, entries, distribution)
         print baseVersion

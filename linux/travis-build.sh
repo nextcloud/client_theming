@@ -85,11 +85,12 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
     if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         sudo apt-get update -q
         sudo apt-get install -y devscripts cdbs
+        echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
     elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         #pwd
         #ls -al
-        basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog`
+        basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog stable`
 
         cd ..
         mv client_theming nextcloud-client_${basever}
@@ -102,20 +103,36 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
             origsourceopt="-sa"
             cd nextcloud-client_${basever}
         fi
+
         cd nextcloud-client_${basever}
 
-        cp -a linux/debian/nextcloud-client/debian .
-        cp /tmp/tmpchangelog debian/changelog
-        cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
+        for distribution in trusty xenial yakkety zesty; do
+            rm -rf debian
+            cp -a linux/debian/nextcloud-client/debian .
+            if test -d linux/debian/nextcloud-client/debian.${distribution}; then
+                cp -a linux/debian/nextcloud-client/debian.${distribution} debian
+            fi
 
-        EDITOR=true dpkg-source --commit . local-changes
+            linux/debian/scripts/git2changelog.py /tmp/tmpchangelog ${distribution}
+            cp /tmp/tmpchangelog debian/changelog
+            if test -d linux/debian/nextcloud-client/debian.${distribution}; then
+                cat linux/debian/nextcloud-client/debian.${distribution}/changelog >> debian/changelog
+            else
+                cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
+            fi
 
-        echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
-        /usr/bin/debuild -S ${origsourceopt}
+            EDITOR=true dpkg-source --commit . local-changes
+
+            debuild -S ${origsourceopt}
+
+            debuild clean
+        done
 
         cd ..
         ls -al
-        dput ppa:ivaradi/nextcloud-client-daily nextcloud-client*.changes > /dev/null
+        for changes in nextcloud-client*_source.changes; do
+            dput ppa:ivaradi/nextcloud-client-daily $changes > /dev/null
+        done
     fi
 else
     echo 'No $BUILD_TYPE defined'
