@@ -93,8 +93,6 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog stable`
 
         cd ..
-        mv client_theming nextcloud-client_${basever}
-
         origsourceopt=""
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
         if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
@@ -104,10 +102,12 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
             cd nextcloud-client_${basever}
         fi
 
-        cd nextcloud-client_${basever}
-
         for distribution in trusty xenial yakkety zesty; do
-            rm -rf debian
+            rm -rf nextcloud-client_${basever}
+            cp -a client_theming nextcloud-client_${basever}
+
+            cd nextcloud-client_${basever}
+
             cp -a linux/debian/nextcloud-client/debian .
             if test -d linux/debian/nextcloud-client/debian.${distribution}; then
                 cp -a linux/debian/nextcloud-client/debian.${distribution} debian
@@ -115,7 +115,7 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
 
             linux/debian/scripts/git2changelog.py /tmp/tmpchangelog ${distribution}
             cp /tmp/tmpchangelog debian/changelog
-            if test -d linux/debian/nextcloud-client/debian.${distribution}; then
+            if test -f linux/debian/nextcloud-client/debian.${distribution}/changelog; then
                 cat linux/debian/nextcloud-client/debian.${distribution}/changelog >> debian/changelog
             else
                 cat linux/debian/nextcloud-client/debian/changelog >> debian/changelog
