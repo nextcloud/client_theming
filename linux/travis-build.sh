@@ -124,9 +124,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
             EDITOR=true dpkg-source --commit . local-changes
 
             debuild -S ${origsourceopt}
+
+            cd ..
         done
 
-        cd ..
         ls -al
         for changes in nextcloud-client*_source.changes; do
             dput ppa:ivaradi/nextcloud-client-daily $changes > /dev/null
