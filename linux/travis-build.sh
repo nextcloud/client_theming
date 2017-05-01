@@ -97,9 +97,10 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
         if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-exp/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
         #if ! wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+            mv client_theming nextcloud-client_${basever}
             tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
+            mv nextcloud-client_${basever} client_theming
             origsourceopt="-sa"
-            cd nextcloud-client_${basever}
         fi
 
         for distribution in trusty xenial yakkety zesty; do
