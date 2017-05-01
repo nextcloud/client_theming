@@ -89,17 +89,17 @@ elif [ "$BUILD_TYPE" == "debian" ]; then
         openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         #pwd
         #ls -al
-        basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog`
+        upstreamver=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog`
 
         cd ..
-        mv client_theming nextcloud-client_${basever}
+        mv client_theming nextcloud-client_${upstreamver}
         #wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_2.3.1.orig.tar.bz2
         origsourceopt=""
-        if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
-            tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
+        if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-daily/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${upstreamver}.orig.tar.bz2; then
+            tar cjf nextcloud-client_${upstreamver}.orig.tar.bz2 --exclude .git nextcloud-client_${upstreamver}
             origsourceopt="-sa"
         fi
-        cd nextcloud-client_${basever}
+        cd nextcloud-client_${upstreamver}
 
         cp -a linux/debian/nextcloud-client/debian .
         cp /tmp/tmpchangelog debian/changelog

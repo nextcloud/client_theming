@@ -33,19 +33,21 @@ def collectEntries(baseCommit, baseVersion):
     return entries
 
 def genChangeLogEntries(f, entries, distribution):
+    upstreamVersion = None
     for (commit, name, email, date, revdate, subject, baseVersion) in entries:
-        version = baseVersion + "-" + revdate + "~" + distribution + "1"
+        upstreamVersion = baseVersion + "-" + revdate
+        version = upstreamVersion + "~" + distribution + "1"
         print >> f, "nextcloud-client (%s) %s; urgency=medium" % (version, distribution)
         print >> f
         print >> f, "  * " + subject
         print >> f
         print >> f, " -- %s <%s>  %s" % (name, email, date)
         print >> f
-    return baseVersion
+    return version
 
 if __name__ == "__main__":
     #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4")
     entries = collectEntries("dcac71898e7fda7ae4b149e2db25c178c90e7172", "2.3.1")
     with open(sys.argv[1], "wt") as f:
-        baseVersion = genChangeLogEntries(f, entries, distribution)
-        print baseVersion
+        upstreamVersion = genChangeLogEntries(f, entries, distribution)
+        print upstreamVersion
