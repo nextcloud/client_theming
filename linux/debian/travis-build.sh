@@ -57,6 +57,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
     cd ..
 
     for changes in nextcloud-client*_source.changes; do
-        dput ppa:ivaradi/nextcloud-client-exp $changes > /dev/null
+        #dput ppa:ivaradi/nextcloud-client-exp $changes > /dev/null
+        dput ppa:nextcloud-devs/client $changes > /dev/null
     done
 fi
