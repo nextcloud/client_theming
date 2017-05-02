@@ -12,9 +12,9 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
-    pwd
-    ls -al
-    git log
+    #pwd
+    #ls -al
+    #git log
     basever=`linux/debian/scripts/git2changelog.py /tmp/tmpchangelog stable`
 
     cd ..
