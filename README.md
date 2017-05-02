@@ -5,19 +5,21 @@
 
 Based on https://github.com/owncloud/client/blob/master/doc/building.rst 
 
+## Installing on Linux
+
+Install Nextcloud desktop client in seconds on [Ubuntu and other snap supported Linux distributions](https://snapcraft.io/docs/core/install) with:
+
+    snap install nextcloud-client
+
+Installing a snap is very quick. Snaps are secure. They are isolated with all of their dependencies. Snaps also auto update when a new version is released. Due to the confinement model snaps provide the synced folders will be located in `~/snap/<version>/` by default. The client can access the actual home, but not the dot files and directories that might contain private or sensitive data.
+
 ## Installing on Ubuntu
+
 ```bash
 sudo add-apt-repository ppa:nextcloud-devs/client
 sudo apt-get update
 sudo apt-get install nextcloud-client
 ```
-
-## Installing via Snap package ([supported distributions](https://snapcraft.io/docs/core/install))
-Download the [snap package](https://github.com/nextcloud/client_theming/releases/tag/continuous) for your architecture
-```bash
-sudo snap install --dangerous nextcloud-client_*.snap
-```
-The snap is confined, thus the synced folders will be by default in `~/snap/<version>/`, the client can access to the actual home, but not to the `.dotted` files, use symlinks if you need to.
 
 ## Getting repository ready
 
