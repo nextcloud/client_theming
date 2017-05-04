@@ -3,6 +3,9 @@
 # output every command that modifies files on the build system.
 #export DH_VERBOSE = 1
 
+common-configure-indep::
+	if test -d .git; then git submodule init && git submodule update; fi
+
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/cmake.mk
 
