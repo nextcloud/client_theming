@@ -81,6 +81,8 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
         curl --progress-bar --upload-file "$snap" "https://transfer.sh/$(basename $snap)"
     fi
+elif [ "$BUILD_TYPE" == "debian" ]; then
+    linux/debian/travis-build.sh "$@"
 else
     echo 'No $BUILD_TYPE defined'
     exit 1
