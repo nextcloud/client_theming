@@ -78,3 +78,10 @@ Depends: nextcloud-client (>=${binary:Version}), libnextcloudsync0, python-caja,
 Description: Caja plugin for Nextcloud
  This package contains a Caja plugin to display
  synchronization status icons for Nextcloud files.
+
+Package: nextcloud-client-dolphin
+Architecture: any
+Depends: dolphin (>= 4:15.12.1), libnextcloudsync0 (= ${binary:Version}), nextcloud-client, ${misc:Depends}, ${shlibs:Depends}
+Description: Dolphin plugin for Nextcloud
+ This package contains a Dolphin plugin to display
+ synchronization status icons for Nextcloud files.
