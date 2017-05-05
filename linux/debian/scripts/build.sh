@@ -17,6 +17,6 @@ pushd /
 
 "${scriptdir}/create_debdir.sh" "${package}" "${tag}" "${version}" "${distribution}"
 
-(cd "${BUILDAREA}/${package}_${version}"; debuild "$@")
+(cd "${BUILDAREA}/${package}_${version}"; EDITOR=true dpkg-source --commit . local-changes; debuild "$@")
 
 popd
