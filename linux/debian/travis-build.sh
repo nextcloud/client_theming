@@ -4,6 +4,8 @@ set -xe
 
 TRAVIS_BUILD_STEP="$1"
 
+PPA=ppa:nextcloud-devs/client
+
 OBS_PROJECT=home:ivaradi
 OBS_PACKAGE=nextcloud-client
 OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
@@ -15,8 +17,12 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
+
+        openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
+    elif test "$encrypted_8da7a4416c7a_key" -a "$encrypted_8da7a4416c7a_iv"; then
+        openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
+        PPA=ppa:ivaradi/nextcloud-client-exp
     fi
-    openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
     #pwd
@@ -68,8 +74,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
     cd ..
 
     for changes in nextcloud-client*_source.changes; do
-        #dput ppa:ivaradi/nextcloud-client-exp $changes > /dev/null
-        dput ppa:nextcloud-devs/client $changes > /dev/null
+        dput $PPA $changes > /dev/null
     done
 
     mkdir osc
