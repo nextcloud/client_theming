@@ -8,8 +8,10 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
     sudo apt-get install -y devscripts cdbs
 
-    openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
-    echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
+    if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
+        echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
+    fi
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
     #pwd
@@ -48,7 +50,11 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 
         EDITOR=true dpkg-source --commit . local-changes
 
-        debuild -S ${origsourceopt}
+        if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+            debuild -S ${origsourceopt}
+        else
+            debuild -S ${origsourceopt} -us -uc
+        fi
 
         cd ..
     done
