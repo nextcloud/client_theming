@@ -4,6 +4,10 @@ set -xe
 
 TRAVIS_BUILD_STEP="$1"
 
+OBS_PROJECT=home:ivaradi
+OBS_PACKAGE=nextcloud-client
+OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
+
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
     sudo apt-get install -y devscripts cdbs
@@ -12,6 +16,7 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
     fi
+    openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in oscrc.enc -out ~/.oscrc -d
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
     #pwd
@@ -29,7 +34,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         origsourceopt="-sa"
     fi
 
-    for distribution in trusty xenial yakkety zesty; do
+    for distribution in trusty xenial yakkety zesty stable; do
         rm -rf nextcloud-client_${basever}
         cp -a client_theming nextcloud-client_${basever}
 
@@ -66,4 +71,17 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
         #dput ppa:ivaradi/nextcloud-client-exp $changes > /dev/null
         dput ppa:nextcloud-devs/client $changes > /dev/null
     done
+
+    mkdir osc
+    cd osc
+    osc co ${OBS_PROJECT} ${OBS_PACKAGE}
+    osc delete ${OBS_SUBDIR}/nextcloud-client/*
+    cp ../nextcloud-client*.orig.tar.* ${OBS_SUBDIR}/
+    cp ../nextcloud-client_*[0-9.][0-9].dsc ${OBS_SUBDIR}/
+    cp ../nextcloud-client_*[0-9.][0-9].debian.tar.xz ${OBS_SUBDIR}/
+    cp ../nextcloud-client_*[0-9.][0-9]_source.changes ${OBS_SUBDIR}/
+    osc add ${OBS_SUBDIR}/*
+
+    cd ${OBS_SUBDIR}
+    osc commit -n
 fi
