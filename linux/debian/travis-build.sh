@@ -37,7 +37,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 
         cp -a linux/debian/nextcloud-client/debian .
         if test -d linux/debian/nextcloud-client/debian.${distribution}; then
-            cp -a linux/debian/nextcloud-client/debian.${distribution} debian
+            tar cf - -C linux/debian/nextcloud-client/debian.${distribution} . | tar xf - -C debian
         fi
 
         linux/debian/scripts/git2changelog.py /tmp/tmpchangelog ${distribution}
