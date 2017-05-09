@@ -12,21 +12,30 @@ sudo apt-get update
 sudo apt-get install nextcloud-client
 ```
 
-## Installing via Snap package ([supported distributions](https://snapcraft.io/docs/core/install))
+## Snaps
+
+### Building the snap
+```bash
+cd linux
+snapcraft
+```
+
+### Installing via Snap package ([supported distributions](https://snapcraft.io/docs/core/install))
 Download the [snap package](https://github.com/nextcloud/client_theming/releases/tag/continuous) for your architecture
 ```bash
 sudo snap install --dangerous nextcloud-client_*.snap
 ```
+Installing a snap is very quick. Snaps are secure. They are isolated with all of their dependencies. Snaps also auto update when a new version is released. 
 The snap is confined, thus the synced folders will be by default in `~/snap/<version>/`, the client can access to the actual home, but not to the `.dotted` files, use symlinks if you need to.
 
-## Getting repository ready
+## Building on Linux
+
+### Getting repository ready
 
 Run:
 ```bash
 git submodule update --init --recursive
 ```
-
-## Building on Linux
 
 Run:
 
@@ -42,13 +51,7 @@ make
 sudo make install
 ```
 
-### Building the snap
-```bash
-cd linux
-snapcraft
-```
-
-### Building on Debian
+## Building on Debian
 
 Install required packages. 
 
