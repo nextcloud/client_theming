@@ -3,6 +3,7 @@
 import subprocess
 import re
 import sys
+import datetime
 
 baseVersion="2.2.4"
 distribution="yakkety"
@@ -14,8 +15,7 @@ def collectEntries(baseCommit, baseVersion):
 
     args = ["git", "log",
             "--format=%h%x09%an%x09%ae%x09%aD%x09%ad%x09%s",
-            "--date=format:%Y%m%d.%H%M%S",
-            "--author-date-order", "--reverse"]
+            "--date=unix", "--author-date-order", "--reverse"]
     try:
         output = subprocess.check_output(args + [baseCommit + ".."])
     except:
@@ -23,6 +23,7 @@ def collectEntries(baseCommit, baseVersion):
 
     for line in output.splitlines():
         (commit, name, email, date, revdate, subject) = line.split("\t")
+        revdate = datetime.datetime.utcfromtimestamp(long(revdate)).strftime("%Y%m%d.%H%M%S")
 
         for tag in subprocess.check_output(["git", "tag",
                                             "--points-at",
