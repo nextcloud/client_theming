@@ -3,7 +3,7 @@
 
 **Theme and build instructions for the [Nextcloud](https://nextcloud.com) desktop client.**
 
-Based on https://github.com/owncloud/client/blob/master/doc/building.rst 
+Based on https://github.com/owncloud/client/blob/master/doc/building.rst
 
 ## Installing on Ubuntu
 ```bash
@@ -25,7 +25,7 @@ Download the [snap package](https://github.com/nextcloud/client_theming/releases
 ```bash
 sudo snap install --dangerous nextcloud-client_*.snap
 ```
-Installing a snap is very quick. Snaps are secure. They are isolated with all of their dependencies. Snaps also auto update when a new version is released. 
+Installing a snap is very quick. Snaps are secure. They are isolated with all of their dependencies. Snaps also auto update when a new version is released.
 The snap is confined, thus the synced folders will be by default in `~/snap/<version>/`, the client can access to the actual home, but not to the `.dotted` files, use symlinks if you need to.
 
 ## Building on Linux
@@ -53,13 +53,13 @@ sudo make install
 
 ## Building on Debian
 
-Install required packages. 
+Install required packages.
 
     sudo apt-get install git libsqlite3-dev qt5-default libqt5webkit5-dev qt5keychain-dev cmake build-essential libowncloudsync0
 
 If you are using Debian 9 install libssl1.0-dev
 
-    sudo apt-get install libssl1.0-dev 
+    sudo apt-get install libssl1.0-dev
 
 If you are using Debian 8 install libssl-dev
 
@@ -106,7 +106,7 @@ tar -xf qt-everywhere-opensource-src-5.6.2.tar.gz
 cd /tmp/qt-everywhere-opensource-src-5.6.2/qtbase
 git apply <client>/admin/qt/patches/qtbase/*.patch
 cd ..
-./configure -sdk macosx10.9
+./configure -sdk macosx10.9 -openssl -openssl-linked
 make -j2
 sudo make -j1 install
 ```
