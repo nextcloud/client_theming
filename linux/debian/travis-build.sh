@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -xe
+shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
