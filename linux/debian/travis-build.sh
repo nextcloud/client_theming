@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -xe
+shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
@@ -74,7 +75,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
     cd ..
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
-        for changes in nextcloud-client*_source.changes; do
+        for changes in nextcloud-client_*~+([a-z])1_source.changes; do
             dput $PPA $changes > /dev/null
         done
     fi
