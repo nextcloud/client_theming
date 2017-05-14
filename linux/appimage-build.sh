@@ -96,7 +96,7 @@ get_desktopintegration $LOWERAPP
 # Determine the version of the app
 ########################################################################
 
-VERSION=git$GIT_REV
+VERSION=git.$GIT_REV
 
 ########################################################################
 # Patch away absolute paths; it would be nice if they were relative
