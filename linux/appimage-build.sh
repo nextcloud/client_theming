@@ -93,11 +93,10 @@ cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/
 get_desktopintegration $LOWERAPP
 
 ########################################################################
-# Determine the version of the app; also include needed glibc version
+# Determine the version of the app
 ########################################################################
 
-GLIBC_NEEDED=$(glibc_needed)
-VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
+VERSION=git.$GIT_REV
 
 ########################################################################
 # Patch away absolute paths; it would be nice if they were relative
