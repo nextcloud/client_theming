@@ -4,7 +4,6 @@
 **Theme and build instructions for the [Nextcloud](https://nextcloud.com) desktop client.**
 
 Based on https://github.com/owncloud/client/blob/master/doc/building.rst
-Launchpad: https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client
 
 ## Installing on Ubuntu
 ```bash
@@ -12,6 +11,7 @@ sudo add-apt-repository ppa:nextcloud-devs/client
 sudo apt-get update
 sudo apt-get install nextcloud-client
 ```
+Launchpad: https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client
 
 ## Snaps
 
