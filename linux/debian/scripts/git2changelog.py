@@ -40,7 +40,10 @@ def collectEntries(baseCommit, baseVersion):
     return entries
 
 def genChangeLogEntries(f, entries, distribution):
+    latestBaseVersion = None
     for (commit, name, email, date, revdate, subject, baseVersion) in entries:
+        if latestBaseVersion is None:
+            latestBaseVersion = baseVersion
         upstreamVersion = baseVersion + "-" + revdate
         if distribution=="stable":
             version = upstreamVersion
@@ -52,7 +55,7 @@ def genChangeLogEntries(f, entries, distribution):
         print >> f
         print >> f, " -- %s <%s>  %s" % (name, email, date)
         print >> f
-    return baseVersion
+    return latestBaseVersion
 
 if __name__ == "__main__":
     distribution = sys.argv[2]
