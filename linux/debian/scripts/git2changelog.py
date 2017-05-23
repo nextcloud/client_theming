@@ -5,12 +5,11 @@ import re
 import sys
 import datetime
 
-baseVersion="2.2.4"
 distribution="yakkety"
 
 versionTagRE = re.compile("^v([0-9]+((\.[0-9]+)+))(-(.+))?$")
 
-def collectEntries(baseCommit, baseVersion):
+def collectEntries(baseCommit, baseVersion, kind):
     entries = []
 
     args = ["git", "log",
@@ -31,9 +30,10 @@ def collectEntries(baseCommit, baseVersion):
             m = versionTagRE.match(tag)
             if m:
                 baseVersion = m.group(1)
+                kind = "release" if m.group(4) is None else "beta"
 
         entries.append((commit, name, email, date, revdate, subject,
-                        baseVersion))
+                        baseVersion, kind))
 
     entries.reverse()
 
@@ -41,9 +41,11 @@ def collectEntries(baseCommit, baseVersion):
 
 def genChangeLogEntries(f, entries, distribution):
     latestBaseVersion = None
-    for (commit, name, email, date, revdate, subject, baseVersion) in entries:
+    latestKind = None
+    for (commit, name, email, date, revdate, subject, baseVersion, kind) in entries:
         if latestBaseVersion is None:
             latestBaseVersion = baseVersion
+            latestKind = kind
         upstreamVersion = baseVersion + "-" + revdate
         if distribution=="stable":
             version = upstreamVersion
@@ -55,15 +57,15 @@ def genChangeLogEntries(f, entries, distribution):
         print >> f
         print >> f, " -- %s <%s>  %s" % (name, email, date)
         print >> f
-    return latestBaseVersion
+    return (latestBaseVersion, latestKind)
 
 if __name__ == "__main__":
     distribution = sys.argv[2]
 
-    #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4")
-    entries = collectEntries("dcac71898e7fda7ae4b149e2db25c178c90e7172", "2.3.1")
+    #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4", "release")
+    entries = collectEntries("dcac71898e7fda7ae4b149e2db25c178c90e7172", "2.3.1", "release")
 
 
     with open(sys.argv[1], "wt") as f:
-        baseVersion = genChangeLogEntries(f, entries, distribution)
-        print baseVersion
+        (baseVersion, kind) = genChangeLogEntries(f, entries, distribution)
+        print baseVersion, kind
