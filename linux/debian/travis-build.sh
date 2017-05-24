@@ -11,7 +11,6 @@ PPA_BETA=ppa:nextcloud-devs/client-beta
 OBS_PROJECT=home:ivaradi
 OBS_PACKAGE=nextcloud-client
 OBS_PACKAGE_BETA=nextcloud-client-beta
-OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
@@ -87,6 +86,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
         PPA=$PPA_BETA
         OBS_PACKAGE=$OBS_PACKAGE_BETA
     fi
+    OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
