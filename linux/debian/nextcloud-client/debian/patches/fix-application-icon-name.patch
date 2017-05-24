@@ -34,7 +34,7 @@ Last-Update: 2016-12-20
  Keywords=@APPLICATION_NAME@;syncing;file;sharing;
  X-GNOME-Autostart-Delay=3
  
-@@ -806,168 +806,168 @@
+@@ -962,168 +962,168 @@
  Comment[oc]=@APPLICATION_NAME@ sincronizacion del client
  GenericName[oc]=Dorsièr de Sincronizacion
  Name[oc]=@APPLICATION_NAME@ sincronizacion del client
@@ -99,7 +99,7 @@ Last-Update: 2016-12-20
  Name[fa]=@APPLICATION_EXECUTABLE@ نسخه‌ی همسان سازی مشتری
 -Icon[fa]=@APPLICATION_EXECUTABLE@
 +Icon[fa]=@APPLICATION_SHORTNAME@
- Comment[fr]=Application de bureau pour synchroniser des dossiers avec un serveur @APPLICATION_NAME@
+ Comment[fr]=Synchronisez vos dossiers avec un serveur @APPLICATION_NAME@
  GenericName[fr]=Synchronisation de dossier
  Name[fr]=Client de synchronisation @APPLICATION_NAME@
 -Icon[fr]=@APPLICATION_EXECUTABLE@
