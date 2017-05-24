@@ -36,9 +36,15 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 
     echo "$kind" > kind
 
+    if test "$kind" = "beta"; then
+        repo=client-beta
+    else
+        repo=client
+    fi
+
     origsourceopt=""
     #if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-exp/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
-    if ! wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+    if ! wget http://ppa.launchpad.net/nextcloud-devs/${repo}/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
         mv client_theming nextcloud-client_${basever}
         tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
         mv nextcloud-client_${basever} client_theming
