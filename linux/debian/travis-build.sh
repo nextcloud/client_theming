@@ -103,7 +103,9 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
     mkdir osc
     cd osc
     osc co ${OBS_PROJECT} ${OBS_PACKAGE}
-    osc delete ${OBS_SUBDIR}/*
+    if test "$(ls ${OBS_SUBDIR})"; then
+        osc delete ${OBS_SUBDIR}/*
+    fi
     cp ../nextcloud-client*.orig.tar.* ${OBS_SUBDIR}/
     cp ../nextcloud-client_*[0-9.][0-9].dsc ${OBS_SUBDIR}/
     cp ../nextcloud-client_*[0-9.][0-9].debian.tar* ${OBS_SUBDIR}/
