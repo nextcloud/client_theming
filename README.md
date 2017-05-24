@@ -13,6 +13,19 @@ sudo apt-get install nextcloud-client
 ```
 Launchpad: https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client
 
+### Beta packages
+
+```bash
+sudo add-apt-repository ppa:nextcloud-devs/client-beta
+sudo apt-get update
+sudo apt-get install nextcloud-client
+```
+Launchpad: https://launchpad.net/~nextcloud-devs/+archive/ubuntu/client-beta
+
+If you always want the latest versions (including the betas), add both
+repositories. If you want only the stable version, add the non-beta
+repository only.
+
 ## Snaps
 
 ### Building the snap

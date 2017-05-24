@@ -11,7 +11,6 @@ PPA_BETA=ppa:nextcloud-devs/client-beta
 OBS_PROJECT=home:ivaradi
 OBS_PACKAGE=nextcloud-client
 OBS_PACKAGE_BETA=nextcloud-client-beta
-OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
@@ -37,9 +36,15 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 
     echo "$kind" > kind
 
+    if test "$kind" = "beta"; then
+        repo=client-beta
+    else
+        repo=client
+    fi
+
     origsourceopt=""
     #if ! wget http://ppa.launchpad.net/ivaradi/nextcloud-client-exp/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
-    if ! wget http://ppa.launchpad.net/nextcloud-devs/client/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
+    if ! wget http://ppa.launchpad.net/nextcloud-devs/${repo}/ubuntu/pool/main/n/nextcloud-client/nextcloud-client_${basever}.orig.tar.bz2; then
         mv client_theming nextcloud-client_${basever}
         tar cjf nextcloud-client_${basever}.orig.tar.bz2 --exclude .git nextcloud-client_${basever}
         mv nextcloud-client_${basever} client_theming
@@ -87,6 +92,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
         PPA=$PPA_BETA
         OBS_PACKAGE=$OBS_PACKAGE_BETA
     fi
+    OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
