@@ -1,7 +1,7 @@
 #/bin/bash
 
-#Get Qt-5.6.2
-source /opt/qt56/bin/qt56-env.sh
+#Get Qt-5.8
+source /opt/qt58/bin/qt58-env.sh
 
 #QtKeyChain
 cd
@@ -11,7 +11,7 @@ git checkout v0.8.0
 mkdir build
 cd build
 cmake -D CMAKE_INSTALL_PREFIX=/app ../
-make
+make -j4
 make install
 
 #Build client
@@ -22,9 +22,9 @@ cmake -D CMAKE_INSTALL_PREFIX=/app \
     -D NO_SHIBBOLETH=1 \
     -D OEM_THEME_DIR=/home/client/nextcloudtheme \
     -DMIRALL_VERSION_SUFFIX=beta \
-    -DMIRALL_VERSION_BUILD=13 \
+    -DMIRALL_VERSION_BUILD=14 \
     /home/client/client
-make
+make -j4
 make install
 
 #Set info
@@ -56,7 +56,7 @@ cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
 
 #Copy qt plugins
 mkdir -p ./usr/lib/qt5/plugis
-cp -r /opt/qt56/plugins ./usr/lib/qt5/plugins
+cp -r /opt/qt58/plugins ./usr/lib/qt5/plugins
 
 #Copy dependencies
 copy_deps
@@ -74,8 +74,8 @@ rm -rf app/ || true
 cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/
 
 
-#Move qt5.6 libs to the right location
-mv ./opt/qt56/lib/* ./usr/lib/x86_64-linux-gnu/
+#Move qt5.8 libs to the right location
+mv ./opt/qt58/lib/* ./usr/lib/
 rm -rf ./opt/
 
 #Move sync exlucde to right location
