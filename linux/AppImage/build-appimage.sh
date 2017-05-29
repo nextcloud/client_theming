@@ -1,10 +1,22 @@
-#/bin/bash
+#! /bin/bash
 
-#Get Qt-5.8
-source /opt/qt58/bin/qt58-env.sh
+export SUDO_UID=${SUDO_UID:-1000}
+export SUDO_GID=${SUDO_GID:-1000}
 
-#QtKeyChain
-cd
+export APP=Nextcloud
+export LOWERAPP=${APP,,}
+export ARCH=x86_64
+export VERSION=2.3.2-beta
+
+#Set Qt-5.8
+export QT_BASE_DIR=/opt/qt58
+export QTDIR=$QT_BASE_DIR
+export PATH=$QT_BASE_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$QT_BASE_DIR/lib/x86_64-linux-gnu:$QT_BASE_DIR/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
+
+#QtKeyChain 0.8.0
+cd 
 git clone https://github.com/frankosterfeld/qtkeychain.git
 cd qtkeychain
 git checkout v0.8.0
@@ -15,7 +27,7 @@ make -j4
 make install
 
 #Build client
-cd
+cd 
 mkdir build-client
 cd build-client
 cmake -D CMAKE_INSTALL_PREFIX=/app \
@@ -26,12 +38,6 @@ cmake -D CMAKE_INSTALL_PREFIX=/app \
     /home/client/client
 make -j4
 make install
-
-#Set info
-ARCH=$(arch)
-APP=Nextcloud
-LOWERAPP=${APP,,}
-VERSION=2.3.2-beta
 
 #Create skeleton
 mkdir -p $HOME/$APP/$APP.AppDir/usr/
@@ -72,7 +78,15 @@ strip usr/bin/* usr/lib/* || true
 rm -rf app/ || true
 # Copy, since libssl must be in sync with libcrypto
 cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/
-
+# No need to add CMake stuff
+rm -rf usr/lib/x86_64-linux-gnu/cmake/
+rm -rf usr/mkspecs
+# Don't bundle nextcloudcmd as we don't run it anyway
+rm usr/bin/nextcloudcmd
+# Don't bundle the explorer extentions as we can't do anything with them in the AppImage
+rm -rf usr/share/caja-python/
+rm -rf usr/share/nautilus-python/
+rm -rf usr/share/nemo-python/
 
 #Move qt5.8 libs to the right location
 mv ./opt/qt58/lib/* ./usr/lib/
@@ -80,14 +94,25 @@ rm -rf ./opt/
 
 #Move sync exlucde to right location
 mv ./usr/etc/Nextcloud/sync-exclude.lst ./usr/bin/
+rm -rf ./usr/etc
 
 #desktop intergration
 get_desktopintegration $LOWERAPP
 
 #Generate the appimage
 cd ..
-mkdir -p ../out/
-generate_type2_appimage
+wget -c https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+chmod +x appimagetool-x86_64.AppImage
+./appimagetool-x86_64.AppImage --appimage-extract
 
-#move appimag
-mv ../out/ /home/client/
+mkdir -p ../out/
+GLIBC_NEEDED=$(glibc_needed)
+APPIMAGE_FILENAME=${APP}-${VERSION}-${ARCH}.glibc$GLIBC_NEEDED.AppImage
+APPIMAGE_PATH=../out/$APPIMAGE_FILENAME
+
+./squashfs-root/AppRun -n -v $APP.AppDir $APPIMAGE_PATH
+
+#move appimage
+chown $SUDO_UID:$SUDO_GID ../out/*.AppImage
+mkdir -p /home/client/out
+mv ../out/*.AppImage /home/client/out/
