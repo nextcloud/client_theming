@@ -30,10 +30,12 @@ repository only.
 
 You need to add to `sources.list` or a separate source list file one of the source lines below corresponding to your Debian version:
 
-`deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0_update/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_8.0/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_7.0/ /`
+```
+deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0_update/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_8.0/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_7.0/ /
+```
 
 For example (as root):
 
@@ -47,11 +49,12 @@ apt-get install nextcloud-client
 
 Beta packages are also available:
 
-`deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_9.0_update/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_9.0/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_8.0/ /`
-`deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_7.0/ /
-`
+```
+deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_9.0_update/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_9.0/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_8.0/ /
+deb http://download.opensuse.org/repositories/home:/ivaradi:/beta/Debian_7.0/ /
+```
 
 If you always want the latest versions (including the betas), add both the normal and the beta repositories. If you want only the stable version, add the non-beta repository only.
 
