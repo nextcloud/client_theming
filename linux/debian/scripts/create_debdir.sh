@@ -74,3 +74,7 @@ tar cf - -C "${scriptdir}/../${package}/debian" . | tar xf - -C "${packagedir}/d
 if test -d "${scriptdir}/../${package}/debian.${distribution}"; then
     tar cf - -C "${scriptdir}/../${package}/debian.${distribution}" . | tar xf - -C "${packagedir}/debian"
 fi
+
+"${scriptdir}/git2changelog.py"  /tmp/git2changelog "${distribution}"
+mv "${packagedir}/debian/changelog" "${packagedir}/debian/changelog.old"
+cat /tmp/git2changelog "${packagedir}/debian/changelog.old" > "${packagedir}/debian/changelog"
