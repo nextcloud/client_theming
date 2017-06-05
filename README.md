@@ -37,10 +37,17 @@ deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_8.0/ /
 deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_7.0/ /
 ```
 
+Before installing, you also need to add the respository's key to the list of trusted APT keys with a command line:
+
+```
+wget -q -O - <repository URL>/Release.key | apt-key add -y
+```
+
 For example (as root):
 
 ```bash
 echo 'deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0/ /' > /etc/apt/sources.list.d/nextcloud-client.list
+wget -q -O - http://download.opensuse.org/repositories/home:/ivaradi/Debian_9.0/Release.key | apt-key add -
 apt-get update
 apt-get install nextcloud-client
 ```
