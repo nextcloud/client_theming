@@ -4,6 +4,7 @@ set( APPLICATION_EXECUTABLE "nextcloud" )
 set( APPLICATION_DOMAIN     "nextcloud.com" )
 set( APPLICATION_VENDOR     "Nextcloud GmbH" )
 set( APPLICATION_UPDATE_URL "https://updates.nextcloud.org/client/" CACHE string "URL for updater" )
+set( APPLICATION_ICON_NAME  "Nextcloud" )
 
 set( THEME_CLASS            "NextcloudTheme" )
 set( APPLICATION_REV_DOMAIN "com.nextcloud.desktopclient" )
