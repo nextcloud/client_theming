@@ -22,97 +22,57 @@ cd qtkeychain
 git checkout v0.8.0
 mkdir build
 cd build
-cmake -D CMAKE_INSTALL_PREFIX=/app ../
+cmake cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make -j4
-make install
+make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 #Build client
 cd 
 mkdir build-client
 cd build-client
-cmake -D CMAKE_INSTALL_PREFIX=/app \
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -D NO_SHIBBOLETH=1 \
     -D OEM_THEME_DIR=/home/client/nextcloudtheme \
     -DMIRALL_VERSION_SUFFIX=beta \
     -DMIRALL_VERSION_BUILD=14 \
     /home/client/client
 make -j4
-make install
-
-#Create skeleton
-mkdir -p $HOME/$APP/$APP.AppDir/usr/
-cd $HOME/$APP/
-
-#Fetch appimage functions
-wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
-. ./functions.sh
+make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 cd $APP.AppDir
 
-#clean binary
-sed -i -e 's|/app|././|g' /app/bin/nextcloud
-
-# Copy installed stuff
-cp -r /app/* ./usr/
-
-get_apprun
-
-cp /app/share/applications/nextcloud.desktop .
 cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
-
-#Copy qt plugins
-mkdir -p ./usr/lib/qt5/plugis
-cp -r /opt/qt58/plugins ./usr/lib/qt5/plugins
-
-#Copy dependencies
-copy_deps
-
-delete_blacklisted
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
 rm -rf usr/lib/cmake || true
 rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
-strip usr/bin/* usr/lib/* || true
-rm -rf app/ || true
-# Copy, since libssl must be in sync with libcrypto
-cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/
-# No need to add CMake stuff
 rm -rf usr/lib/x86_64-linux-gnu/cmake/
 rm -rf usr/mkspecs
+
 # Don't bundle nextcloudcmd as we don't run it anyway
 rm usr/bin/nextcloudcmd
+
 # Don't bundle the explorer extentions as we can't do anything with them in the AppImage
 rm -rf usr/share/caja-python/
 rm -rf usr/share/nautilus-python/
 rm -rf usr/share/nemo-python/
 
-#Move qt5.8 libs to the right location
-mv ./opt/qt58/lib/* ./usr/lib/
-rm -rf ./opt/
-
-#Move sync exlucde to right location
+# Move sync exlucde to right location
 mv ./usr/etc/Nextcloud/sync-exclude.lst ./usr/bin/
 rm -rf ./usr/etc
 
-#desktop intergration
-get_desktopintegration $LOWERAPP
-
-#Generate the appimage
 cd ..
-wget -c https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-chmod +x appimagetool-x86_64.AppImage
-./appimagetool-x86_64.AppImage --appimage-extract
 
-mkdir -p ../out/
-GLIBC_NEEDED=$(glibc_needed)
-APPIMAGE_FILENAME=${APP}-${VERSION}-${ARCH}.glibc$GLIBC_NEEDED.AppImage
-APPIMAGE_PATH=../out/$APPIMAGE_FILENAME
+# Use linuxdeployqt to deploy
+wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
+chmod a+x linuxdeployqt*.AppImage
+unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
+  
+./linuxdeployqt*.AppImage $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
+./linuxdeployqt*.AppImage $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -appimage
 
-./squashfs-root/AppRun -n -v $APP.AppDir $APPIMAGE_PATH
+ls *.AppImage
 
-#move appimage
-chown $SUDO_UID:$SUDO_GID ../out/*.AppImage
-mkdir -p /home/client/out
-mv ../out/*.AppImage /home/client/out/
+mv ./Nextcloud*.AppImage /home/client/out/
