@@ -68,10 +68,11 @@ cd ..
 # Use linuxdeployqt to deploy
 wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
 chmod a+x linuxdeployqt*.AppImage
+./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
 unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   
-./linuxdeployqt*.AppImage $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
-./linuxdeployqt*.AppImage $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -appimage
+./squashfs-root/AppRun $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
+./squashfs-root/AppRun $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -appimage
 
 ls *.AppImage
 
