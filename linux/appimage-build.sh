@@ -14,10 +14,10 @@ sudo apt-get -y build-dep owncloud-client
 git submodule update --init --recursive
 mkdir build-linux
 cd build-linux
-cmake -D CMAKE_INSTALL_PREFIX=/app -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
+cmake -D CMAKE_INSTALL_PREFIX=/usr -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
 make
 find .
-sudo make install
+sudo make install DESTDIR=/app
 find /app
 
 ########################################################################
