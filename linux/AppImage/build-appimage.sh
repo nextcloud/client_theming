@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set +e # Exit on errors so that the Travis CI status indicator works
+
 export SUDO_UID=${SUDO_UID:-1000}
 export SUDO_GID=${SUDO_GID:-1000}
 
@@ -41,7 +43,7 @@ make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 cd $APP.AppDir
 
-cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
+cp usr/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
