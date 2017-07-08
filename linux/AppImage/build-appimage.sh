@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set +e # Exit on errors so that the Travis CI status indicator works
+set -e # Exit on errors so that the Travis CI status indicator works
 
 export APP=Nextcloud
 export VERSION=2.3.2-beta
