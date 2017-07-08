@@ -2,12 +2,7 @@
 
 set +e # Exit on errors so that the Travis CI status indicator works
 
-export SUDO_UID=${SUDO_UID:-1000}
-export SUDO_GID=${SUDO_GID:-1000}
-
 export APP=Nextcloud
-export LOWERAPP=${APP,,}
-export ARCH=x86_64
 export VERSION=2.3.2-beta
 
 #Set Qt-5.8
@@ -18,7 +13,6 @@ export LD_LIBRARY_PATH=$QT_BASE_DIR/lib/x86_64-linux-gnu:$QT_BASE_DIR/lib:$LD_LI
 export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 
 #QtKeyChain 0.8.0
-cd 
 git clone https://github.com/frankosterfeld/qtkeychain.git
 cd qtkeychain
 git checkout v0.8.0
@@ -29,7 +23,6 @@ make -j4
 make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 #Build client
-cd 
 mkdir build-client
 cd build-client
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
@@ -42,8 +35,6 @@ make -j4
 make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 cd $APP.AppDir
-
-cp usr/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
