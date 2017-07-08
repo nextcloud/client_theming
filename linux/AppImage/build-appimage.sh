@@ -24,7 +24,7 @@ cd qtkeychain
 git checkout v0.8.0
 mkdir build
 cd build
-cmake cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make -j4
 make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
