@@ -13,14 +13,14 @@ export LD_LIBRARY_PATH=$QT_BASE_DIR/lib/x86_64-linux-gnu:$QT_BASE_DIR/lib:$LD_LI
 export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 
 #QtKeyChain 0.8.0
-git clone https://github.com/frankosterfeld/qtkeychain.git
-cd qtkeychain
-git checkout v0.8.0
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-make -j4
-make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
+#git clone https://github.com/frankosterfeld/qtkeychain.git
+#cd qtkeychain
+#git checkout v0.8.0
+#mkdir build
+#cd build
+#cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+#make -j4
+#make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
 #Build client
 mkdir build-client
