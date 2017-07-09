@@ -69,4 +69,16 @@ unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
 
 ls *.AppImage
 
-mv ./Nextcloud*.AppImage /home/client/out/
+# mv ./Nextcloud*.AppImage /home/client/out/
+
+########################################################################
+# Upload the AppDir
+########################################################################
+
+if [ -n "$GITHUB_TOKEN" ]; then
+  wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  bash upload.sh $(readlink -f ./Nextcloud*.AppImage)
+else
+  curl --upload-file $(readlink -f ./Nextcloud*.AppImage) https://transfer.sh/Nextcloud-$VERSION-x86_64.AppImage
+  echo "AppImage has been uploaded to the URL above"
+fi
