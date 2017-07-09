@@ -18,7 +18,7 @@ function docker_exec() {
 
 if [ "$BUILD_TYPE" == "appimage" ]; then
     if [ "$TRAVIS_BUILD_STEP" == "script" ]; then
-        $THIS_PATH/appimage-build.sh
+        $THIS_PATH/AppImage/build-appimage.sh
     fi
 elif [ "$BUILD_TYPE" == "snap" ]; then
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
