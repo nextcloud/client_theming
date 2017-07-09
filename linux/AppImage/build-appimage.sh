@@ -29,7 +29,7 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -D NO_SHIBBOLETH=1 \
     -D OEM_THEME_DIR=../nextcloudtheme \
     -DMIRALL_VERSION_SUFFIX=beta \
-    -DMIRALL_VERSION_BUILD=14 ..
+    -DMIRALL_VERSION_BUILD=14 ../client/
 make -j4
 make DESTDIR=$(readlink -f $APP.AppDir) install
 
