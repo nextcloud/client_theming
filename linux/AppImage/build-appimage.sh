@@ -27,12 +27,11 @@ mkdir build-client
 cd build-client
 cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -D NO_SHIBBOLETH=1 \
-    -D OEM_THEME_DIR=/home/client/nextcloudtheme \
+    -D OEM_THEME_DIR=../nextcloudtheme \
     -DMIRALL_VERSION_SUFFIX=beta \
-    -DMIRALL_VERSION_BUILD=14 \
-    /home/client/client
+    -DMIRALL_VERSION_BUILD=14 ..
 make -j4
-make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
+make DESTDIR=$(readlink -f $APP.AppDir) install
 
 cd $APP.AppDir
 
