@@ -5,12 +5,12 @@ set -e # Exit on errors so that the Travis CI status indicator works
 export APP=Nextcloud
 export VERSION=2.3.2-beta
 
-#Set Qt-5.8
-export QT_BASE_DIR=/opt/qt58
-export QTDIR=$QT_BASE_DIR
-export PATH=$QT_BASE_DIR/bin:$PATH
-export LD_LIBRARY_PATH=$QT_BASE_DIR/lib/x86_64-linux-gnu:$QT_BASE_DIR/lib:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+sudo sh -c "echo 'deb-src http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04/Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update
+sudo apt-get -y build-dep owncloud-client
 
 #QtKeyChain 0.8.0
 #git clone https://github.com/frankosterfeld/qtkeychain.git
@@ -22,18 +22,15 @@ export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 #make -j4
 #make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
-#Build client
-mkdir build-client
-cd build-client
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -D NO_SHIBBOLETH=1 \
-    -D OEM_THEME_DIR=../nextcloudtheme \
-    -DMIRALL_VERSION_SUFFIX=beta \
-    -DMIRALL_VERSION_BUILD=14 ../client/
-make -j4
+git submodule update --init --recursive
+mkdir build-linux
+cd build-linux
+cmake -D CMAKE_INSTALL_PREFIX=/usr -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
+make
 make DESTDIR=$(readlink -f $APP.AppDir) install
 
 cd $APP.AppDir
+find .
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
