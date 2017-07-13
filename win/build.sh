@@ -10,7 +10,7 @@ su - user << EOF
   cmake -DCMAKE_TOOLCHAIN_FILE=../client/admin/win/Toolchain-mingw32-openSUSE.cmake\
   -DWITH_CRASHREPORTER=ON \
   -DOEM_THEME_DIR=/home/user/nextcloudtheme \
-  -DMIRALL_VERSION_SUFFIX=beta \
+  -DMIRALL_VERSION_SUFFIX= \
   -DMIRALL_VERSION_BUILD=1 \
   ../client
   make -j4
