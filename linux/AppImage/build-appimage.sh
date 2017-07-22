@@ -54,6 +54,8 @@ rm -rf usr/share/nemo-python/
 mv ./etc/Nextcloud/sync-exclude.lst ./usr/bin/
 rm -rf ./etc
 
+sed -i -e 's|Icon=nextcloud|Icon=Nextcloud|g' usr/share/applications/nextcloud.desktop
+
 find .
 
 cd ..
