@@ -60,8 +60,8 @@ chmod a+x linuxdeployqt*.AppImage
 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
 unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   
-./squashfs-root/AppRun $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
-./squashfs-root/AppRun $(readlink -f $HOME/$APP/$APP.AppDir)/usr/share/applications/nextcloud.desktop -appimage
+./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
+./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -appimage
 
 ls *.AppImage
 
