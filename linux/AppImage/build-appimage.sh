@@ -49,8 +49,8 @@ rm -rf usr/share/nautilus-python/
 rm -rf usr/share/nemo-python/
 
 # Move sync exlucde to right location
-mv ./usr/etc/Nextcloud/sync-exclude.lst ./usr/bin/
-rm -rf ./usr/etc
+mv ./etc/Nextcloud/sync-exclude.lst ./usr/bin/
+rm -rf ./etc
 
 cd ..
 
