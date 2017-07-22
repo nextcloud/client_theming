@@ -30,7 +30,9 @@ make
 make DESTDIR=$(readlink -f $APP.AppDir) install
 
 cd $APP.AppDir
-find .
+
+# Why on earth...
+mv ./usr/lib/x86_64-linux-gnu/nextcloud/* ./usr/lib/x86_64-linux-gnu/ ; rm -rf ./usr/lib/x86_64-linux-gnu/nextcloud
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
@@ -51,6 +53,8 @@ rm -rf usr/share/nemo-python/
 # Move sync exlucde to right location
 mv ./etc/Nextcloud/sync-exclude.lst ./usr/bin/
 rm -rf ./etc
+
+find .
 
 cd ..
 
