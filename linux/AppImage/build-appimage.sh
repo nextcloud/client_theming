@@ -79,7 +79,7 @@ ls *.AppImage
 # Upload the AppDir
 ########################################################################
 
-if [ -n "$GITHUB_TOKEN" ]; then
+if [ "false" == "$TRAVIS_PULL_REQUEST" ]; then
   wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
   bash upload.sh $(readlink -f ./Nextcloud*.AppImage)
 else
