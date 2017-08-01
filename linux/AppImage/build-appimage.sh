@@ -66,7 +66,7 @@ wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous
 chmod a+x linuxdeployqt*.AppImage
 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
 unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$APP.AppDir/usr/lib/x86_64-linux-gnu/
+export LD_LIBRARY_PATH=$APP.AppDir/usr/lib/x86_64-linux-gnu/:$APP.AppDir/usr/lib/
 
 ./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
 
