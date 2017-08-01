@@ -71,8 +71,8 @@ export LD_LIBRARY_PATH=$APP.AppDir/usr/lib/x86_64-linux-gnu/
 ./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
 
 # Why on earth part two...
-mv usr/lib/x86_64-linux-gnu/* usr/lib/
-find usr/lib/libnextcloudsync.so* -type f -exec patchelf  --set-rpath '$ORIGIN/' {} \;
+mv $APP.AppDir/usr/lib/x86_64-linux-gnu/* $APP.AppDir/usr/lib/
+find $APP.AppDir/usr/lib/libnextcloudsync.so* -type f -exec patchelf  --set-rpath '$ORIGIN/' {} \;
 
 ./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -appimage
 
