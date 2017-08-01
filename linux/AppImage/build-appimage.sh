@@ -72,7 +72,7 @@ export LD_LIBRARY_PATH=$APP.AppDir/usr/lib/x86_64-linux-gnu/:$APP.AppDir/usr/lib
 
 # Why on earth part two...
 mv $APP.AppDir/usr/lib/x86_64-linux-gnu/* $APP.AppDir/usr/lib/
-patchelf --set-rpath '$ORIGIN/' $APP.AppDir/usr/lib/libnextcloudsync.so.0
+./squashfs-root/usr/bin/patchelf --set-rpath '$ORIGIN/' $APP.AppDir/usr/lib/libnextcloudsync.so.0
 
 ./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -appimage
 
