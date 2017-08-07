@@ -90,7 +90,11 @@ public:
 
         re += gitSHA1();
         return re;
-}
+    }
+
+    QString forceConfigAuthType() const {
+        return QLatin1String("http");
+    }
 
 };
 
