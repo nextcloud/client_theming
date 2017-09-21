@@ -154,12 +154,12 @@ Because the desktop client comes with some custom patches you have to download t
 
 ```bash
 cd /tmp/
-wget http://download.qt.io/official_releases/qt/5.6/5.6.2/single/qt-everywhere-opensource-src-5.6.2.tar.gz
-tar -xf qt-everywhere-opensource-src-5.6.2.tar.gz
-cd /tmp/qt-everywhere-opensource-src-5.6.2/qtbase
+wget http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.tar.xz
+tar -xjf qt-everywhere-opensource-src-5.9.1.tar.xz
+cd /tmp/qt-everywhere-opensource-src-5.9.1/qtbase
 git apply <client>/admin/qt/patches/qtbase/*.patch
 cd ..
-./configure -sdk macosx10.9 -openssl -openssl-linked
+./configure -sdk macosx10.9 -openssl -openssl-linked  -I /usr/local/opt/openssl/include/ -L /usr/local/opt/openssl/lib/
 make -j2
 sudo make -j1 install
 ```
