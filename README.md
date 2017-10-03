@@ -194,4 +194,4 @@ When we build releases there are two additional cmake parameters to consider:
 * `-DMIRALL_VERSION_SUFFIX=<STRING>`: for a generic suffix name such as `beta` or `rc1`
 * `-DMIRALL_VERSION_BUILD=<INT>`: an internal build number. Should be strictly increasing. This allows update detection from `rc` to `final`
 
-Note that this had mostly usage on Windows and OS X. On linux the package manager will take care of all this.
+Note that this had mostly usage on Windows and OS X. On Linux the package manager will take care of all this.
