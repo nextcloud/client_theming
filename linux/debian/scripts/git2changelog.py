@@ -4,12 +4,37 @@ import subprocess
 import re
 import sys
 import datetime
+import os
+import ConfigParser
 
 distribution="yakkety"
 
 versionTagRE = re.compile("^v([0-9]+((\.[0-9]+)+))(-(.+))?$")
 
+def processVersionTag(tag):
+    m = versionTagRE.match(tag)
+    if m:
+        return (m.group(1), "release" if m.group(4) is None else "beta")
+    else:
+        return None
+
 def collectEntries(baseCommit, baseVersion, kind):
+    scriptdir = os.path.dirname(__file__)
+    configPath = os.path.join(scriptdir, "git2changelog.cfg")
+
+    newVersionCommit = None
+    newVersionTag = None
+    newVersionOrigTag = None
+
+    if os.path.exists(configPath):
+        config = ConfigParser.SafeConfigParser()
+        config.read(configPath)
+        if config.has_section("versionhack"):
+            if config.has_option("versionhack", "commit") and \
+               config.has_option("versionhack", "tag"):
+                newVersionCommit = config.get("versionhack", "commit")
+                newVersionTag = config.get("versionhack", "tag")
+
     entries = []
 
     args = ["git", "log",
@@ -20,17 +45,26 @@ def collectEntries(baseCommit, baseVersion, kind):
     except:
         output = subprocess.check_output(args)
 
+
+    lastVersionTag = None
     for line in output.splitlines():
         (commit, name, email, date, revdate, subject) = line.split("\t")
         revdate = datetime.datetime.utcfromtimestamp(long(revdate)).strftime("%Y%m%d.%H%M%S")
 
+        if commit==newVersionCommit:
+            result = processVersionTag(newVersionTag)
+            if result:
+                newVersionOrigTag = lastVersionTag
+                (baseVersion, kind) = result
+
         for tag in subprocess.check_output(["git", "tag",
                                             "--points-at",
                                             commit]).splitlines():
-            m = versionTagRE.match(tag)
-            if m:
-                baseVersion = m.group(1)
-                kind = "release" if m.group(4) is None else "beta"
+            if tag!=newVersionOrigTag:
+                result = processVersionTag(tag)
+                if result:
+                    lastVersionTag = tag
+                    (baseVersion, kind) = result
 
         entries.append((commit, name, email, date, revdate, subject,
                         baseVersion, kind))
@@ -60,6 +94,7 @@ def genChangeLogEntries(f, entries, distribution):
     return (latestBaseVersion, latestKind)
 
 if __name__ == "__main__":
+
     distribution = sys.argv[2]
 
     #entries = collectEntries("8aade24147b5313f8241a8b42331442b7f40eef9", "2.2.4", "release")
