@@ -19,6 +19,7 @@ env:
   - BUILD_TYPE=snap
   - BUILD_TYPE=snap ARCH=i386
   - BUILD_TYPE=debian
+  - BUILD_TYPE=win
 
 before_install:
   - linux/travis-build.sh before_install
