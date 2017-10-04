@@ -8,13 +8,6 @@ shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
-PPA=ppa:nextcloud-devs/client
-PPA_BETA=ppa:nextcloud-devs/client-beta
-
-OBS_PROJECT=home:ivaradi
-OBS_PROJECT_BETA=home:ivaradi:beta
-OBS_PACKAGE=nextcloud-client
-
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
     sudo apt-get install -y devscripts cdbs osc
