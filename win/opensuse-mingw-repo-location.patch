@@ -1,3 +1,14 @@
+Description: Update the repository location for MinGW.
+
+  Windows builds failed because this dependency was not at the specified
+  location. This patch can be applied to the client submodule to update the
+  Dockerfile with a path to MinGW for openSUSE Leap instead. This change has
+  been applied upstream in owncloud/client at 6be122e (PR owncloud/client#5900)
+  but is not included in the 2.3.3 release.
+
+Last-Update: 2017-10-04
+Author: Taylor Smith <tsmith@tsmithcreative.com>
+
 diff --git a/admin/win/docker/Dockerfile b/admin/win/docker/Dockerfile
 index 8e40a49..1629b97 100644
 --- a/admin/win/docker/Dockerfile

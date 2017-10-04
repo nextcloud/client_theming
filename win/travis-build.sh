@@ -30,9 +30,11 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     fi
 
     # @TODO: This patch updates the repo location of mingw _in the origin repo_
-    # because repositories/windows:/mingw/openSUSE_42.1/windows:mingw.repo does not
-    # exist anymore but it does exist in openSUSE Leap 42.1. This should be removed
-    # and the patch deleted when it is no longer needed to build.
+    # because repositories/windows:/mingw/openSUSE_42.1/windows:mingw.repo has
+    # been moved to openSUSE Leap 42.1. This has been applied upstream but is
+    # not included in their 2.3.3 tag. This should be removed and the patch
+    # deleted when it is no longer needed to build, presumably in the next
+    # release. See owncloud/client at 6be122e (PR owncloud/client#5900).
     cd client
     patch -p1 < ../win/opensuse-mingw-repo-location.patch
     cd ..

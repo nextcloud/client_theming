@@ -181,6 +181,14 @@ Build it:
 docker build -t nextcloud-client-win32:<version> client/admin/win/docker/
 ```
 
+_Note: if you encounter an error at this step that the MinGW repository was not found, apply the patch at_ `win/opensuse-mingw-repo-location.patch` _and try again:_
+
+```bash
+cd client
+patch -p1 < ../win/opensuse-mingw-repo-location.patch
+cd ..
+```
+
 ### Building the binary
 
 ```bash
