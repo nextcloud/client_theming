@@ -51,7 +51,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         origsourceopt="-sa"
     fi
 
-    for distribution in trusty xenial yakkety zesty artful stable; do
+    for distribution in xenial zesty artful stable; do
         rm -rf nextcloud-client_${basever}
         cp -a client_theming nextcloud-client_${basever}
 
