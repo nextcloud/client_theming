@@ -83,6 +83,8 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
     fi
 elif [ "$BUILD_TYPE" == "debian" ]; then
     linux/debian/travis-build.sh "$@"
+elif [ "$BUILD_TYPE" == "win" ]; then
+    win/travis-build.sh "$@"
 else
     echo 'No $BUILD_TYPE defined'
     exit 1

@@ -23,8 +23,8 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: 2016-12-20
 
---- nextcloud-client-2.3.1.orig/client/mirall.desktop.in
-+++ nextcloud-client-2.3.1/client/mirall.desktop.in
+--- nextcloud-client-2.3.3.orig/client/mirall.desktop.in
++++ nextcloud-client-2.3.3/client/mirall.desktop.in
 @@ -5,7 +5,7 @@
  Name=@APPLICATION_NAME@ desktop sync client 
  Comment=@APPLICATION_NAME@ desktop synchronization client
@@ -34,7 +34,7 @@ Last-Update: 2016-12-20
  Keywords=@APPLICATION_NAME@;syncing;file;sharing;
  X-GNOME-Autostart-Delay=3
  
-@@ -962,168 +962,168 @@
+@@ -184,177 +184,177 @@
  Comment[oc]=@APPLICATION_NAME@ sincronizacion del client
  GenericName[oc]=Dorsièr de Sincronizacion
  Name[oc]=@APPLICATION_NAME@ sincronizacion del client
@@ -104,6 +104,11 @@ Last-Update: 2016-12-20
  Name[fr]=Client de synchronisation @APPLICATION_NAME@
 -Icon[fr]=@APPLICATION_EXECUTABLE@
 +Icon[fr]=@APPLICATION_SHORTNAME@
+ Comment[gl]=@APPLICATION_NAME@ cliente de sincronización para escritorio
+ GenericName[gl]=Sincronizar Cartafol
+ Name[gl]=@APPLICATION_NAME@ cliente de sincronización para escritorio
+-Icon[gl]=@APPLICATION_EXECUTABLE@
++Icon[gl]=@APPLICATION_SHORTNAME@
  Comment[he]=@APPLICATION_NAME@ לקוח סנכון שולחן עבודה
  GenericName[he]=סנכון תיקייה
  Name[he]=@APPLICATION_NAME@ לקוח סנכרון שולחן עבודה 
@@ -207,7 +212,13 @@ Last-Update: 2016-12-20
  Name[zh_CN]=@APPLICATION_NAME@ 桌面同步客户端
 -Icon[zh_CN]=@APPLICATION_EXECUTABLE@
 +Icon[zh_CN]=@APPLICATION_SHORTNAME@
+ Comment[zh_HK]=桌面版同步客户端
  GenericName[zh_TW]=資料夾同步
+ Comment[es_AR]=Cliente de sincronización para escritorio @APPLICATION_NAME@ 
+ GenericName[es_AR]=Sincronización de directorio
+ Name[es_AR]=Cliente de sincronización para escritorio @APPLICATION_NAME@ 
+-Icon[es_AR]=@APPLICATION_EXECUTABLE@
++Icon[es_AR]=@APPLICATION_SHORTNAME@
  Comment[lt_LT]=@APPLICATION_NAME@ darbalaukio sinchronizavimo programa
  GenericName[lt_LT]=Katalogo sinchnorizacija
  Name[lt_LT]=@APPLICATION_NAME@ darbalaukio programa
