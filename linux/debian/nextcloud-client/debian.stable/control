@@ -2,8 +2,29 @@ Source: nextcloud-client
 Section: contrib/devel
 Priority: optional
 Maintainer: István Váradi <ivaradi@varadiistvan.hu>
-Build-Depends: debhelper (>= 9), cdbs, cmake, libssl-dev (>= 1.0.0), libsqlite3-dev (>=3.5.9),
-    qtkeychain-dev (>=0.7.0), libqtwebkit-dev, pkg-config
+Build-Depends: cmake,
+               debhelper,
+               cdbs,
+               dh-python,
+               extra-cmake-modules (>= 5.16),
+               kdelibs5-dev,
+               kio-dev,
+               libcmocka-dev,
+               libhttp-dav-perl,
+               libinotify-dev [kfreebsd-any],
+               libqt5webkit5-dev,
+               libsqlite3-dev,
+               libssl-dev (>> 1.0.0),
+               zlib1g-dev,
+               optipng,
+               pkg-kde-tools,
+               python-sphinx | python3-sphinx,
+               python3-all,
+               qt5keychain-dev,
+               qtdeclarative5-dev,
+               qttools5-dev,
+               qttools5-dev-tools,
+               xvfb
 Standards-Version: 3.9.8
 Homepage: https://github.com/nextcloud/client_theming
 #Vcs-Git: git://anonscm.debian.org/collab-maint/nextcloud-client.git
