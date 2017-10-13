@@ -142,7 +142,7 @@ sudo make install
 3. `wget https://github.com/sparkle-project/Sparkle/releases/download/1.14.0/Sparkle-1.14.0.tar.bz2`
 4. `tar -xf Sparkle-1.14.0.tar.bz2`
 5. `mv Sparkle.framework ~/Library/Frameworks/`
-6. Install XCode 6.4 from http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
+6. Install XCode 7.2.1
 7. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 8. Generate Sparkle keys: `./bin/generate_keys`. Keep those, if you loose it you won't be able to deploy updates anymore.
 9. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
@@ -158,7 +158,7 @@ cd /tmp/
 wget http://download.qt.io/official_releases/qt/5.9/5.9.2/single/qt-everywhere-opensource-src-5.9.2.tar.xz
 tar -xjf qt-everywhere-opensource-src-5.9.2.tar.xz
 cd /tmp/qt-everywhere-opensource-src-5.9.2
-./configure -sdk macosx10.11 -openssl -openssl-linked -I /usr/local/opt/openssl/include/ -L /usr/local/opt/openssl/lib/
+./configure -sdk macosx10.11 -openssl -openssl-linked -I /usr/local/opt/openssl/include/ -L /usr/local/opt/openssl/lib/ -nomake examples
 make -j2
 sudo make -j1 install
 ```
