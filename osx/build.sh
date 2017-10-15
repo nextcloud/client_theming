@@ -31,7 +31,7 @@ cd build-mac
 cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.9/clang_64 -D SPARKLE_INCLUDE_DIR=/Users/builder/Library/Frameworks/Sparkle.framework/ -D SPARKLE_LIBRARY=/Users/builder/Library/Frameworks/Sparkle.framework/ -D OEM_THEME_DIR=/Users/builder/client_theming/nextcloudtheme -DWITH_CRASHREPORTER=ON -DNO_SHIBBOLETH=1 -DMIRALL_VERSION_BUILD=1 ../client
 make -j2
 sudo make -j1 install
-sudo ~/client_theming/client/admin/osx/sign_app.sh ~/install/nextcloud.app 59FA8948AEBAE3F2222AE9BC020D6DA31DF821A7
+sudo ~/client/admin/osx/sign_app.sh ~/install/nextcloud.app 59FA8948AEBAE3F2222AE9BC020D6DA31DF821A7
 sudo ./admin/osx/create_mac.sh ../install/ . 6A588D031B2B63991A49DB9C98B4C846D6D0EAC4
 
 # Generate a sparkle signature for the tbz
