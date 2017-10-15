@@ -7,21 +7,20 @@ cd ~
 sudo rm -rf build-mac
 sudo rm -rf client
 sudo rm -rf install
-sudo rm -rf client_theming
 
-# Clone the desktop client code and the theming repository
-cd ~
-git clone https://github.com/nextcloud/client_theming.git
-
+# Clone the desktop client codex
 git clone --recursive https://github.com/owncloud/client.git
 cd client
 git checkout v2.3.3
 git submodule update --recursive
 
 # Build qtkeychain
-cd ~/client/src/3rdparty/qtkeychain
-cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.8 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.9/clang_64 .
-sudo make install
+cd ~/client/src/3rdparty/
+git clone https://github.com/frankosterfeld/qtkeychain.git
+cd qtkeychain
+git checkout v0.8.0
+cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.9/clang_64 .
+sudo make -j1 install
 
 # Build the client
 cd ~
@@ -29,9 +28,9 @@ cp client_theming/osx/dsa_pub.pem client/admin/osx/sparkle/
 rm -rf build-mac
 mkdir build-mac
 cd build-mac
-cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.8 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.9/clang_64 -D SPARKLE_INCLUDE_DIR=/Users/builder/Library/Frameworks/Sparkle.framework/ -D SPARKLE_LIBRARY=/Users/builder/Library/Frameworks/Sparkle.framework/ -D OEM_THEME_DIR=/Users/builder/client_theming/nextcloudtheme -DWITH_CRASHREPORTER=ON -DNO_SHIBBOLETH=1 -DMIRALL_VERSION_BUILD=1 ../client
-make
-sudo make install
+cmake -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 -DCMAKE_INSTALL_PREFIX=/Users/builder/install -DCMAKE_PREFIX_PATH=/Users/builder/Qt/5.9/clang_64 -D SPARKLE_INCLUDE_DIR=/Users/builder/Library/Frameworks/Sparkle.framework/ -D SPARKLE_LIBRARY=/Users/builder/Library/Frameworks/Sparkle.framework/ -D OEM_THEME_DIR=/Users/builder/client_theming/nextcloudtheme -DWITH_CRASHREPORTER=ON -DNO_SHIBBOLETH=1 -DMIRALL_VERSION_BUILD=1 ../client
+make -j2
+sudo make -j1 install
 sudo ~/client_theming/client/admin/osx/sign_app.sh ~/install/nextcloud.app 59FA8948AEBAE3F2222AE9BC020D6DA31DF821A7
 sudo ./admin/osx/create_mac.sh ../install/ . 6A588D031B2B63991A49DB9C98B4C846D6D0EAC4
 
