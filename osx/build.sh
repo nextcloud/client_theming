@@ -8,7 +8,7 @@ sudo rm -rf build-mac
 sudo rm -rf client
 sudo rm -rf install
 
-# Clone the desktop client codex
+# Clone the desktop client code
 git clone --recursive https://github.com/owncloud/client.git
 cd client
 git checkout v2.3.3
