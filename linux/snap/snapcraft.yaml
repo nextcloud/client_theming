@@ -13,6 +13,7 @@ parts:
   client:
     plugin: cmake
     source: ../
+    source-type: git
     source-subdir: client
     build-packages:
       - g++
@@ -22,12 +23,19 @@ parts:
       - pkg-config
       - qt5keychain-dev
       - qttools5-dev-tools
+    stage-packages:
+      # qtkeychain requires these libs at runtime to support keyrings
+      - libsecret-1-0
+      - libgnome-keyring0
     configflags:
       - -DCMAKE_BUILD_TYPE=Release
       - -DOEM_THEME_DIR=$SNAPCRAFT_PART_INSTALL/../src/nextcloudtheme
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_INSTALL_LIBDIR=/usr/lib
       - -DSYSCONF_INSTALL_DIR=/etc
+    install: |
+      # Replace icon with the correct path in the snap
+      sed -ri "s|(^Icon=).*$|\1\${SNAP}/meta/gui/icon.svg|" "$SNAPCRAFT_PART_INSTALL/usr/share/applications/nextcloud.desktop"
 
     after:
       - desktop-qt5
@@ -57,6 +65,7 @@ apps:
       - network
       - network-bind
       - network-manager
+      - password-manager-service
 
   cmd:
     aliases:
