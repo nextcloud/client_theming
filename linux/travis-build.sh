@@ -70,7 +70,7 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
         set -x
 
         ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
-        snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
+        snap=$(find "$THIS_PATH" -name '*.snap' -printf '%P' -quit)
         docker_exec snapcraft push $snap --release edge
     elif [ "$TRAVIS_BUILD_STEP" == "snap_github_release" ]; then
         ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
