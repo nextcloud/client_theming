@@ -41,7 +41,13 @@ deploy:
     skip_cleanup: true
     script: linux/travis-build.sh snap_store_deploy
     on:
-      condition: ($BUILD_TYPE = snap && -n "$SNAPCRAFT_CONFIG_KEY" && -n "$SNAPCRAFT_CONFIG_IV") || $BUILD_TYPE = debian
+      condition: ($BUILD_TYPE = snap && -n "$SNAPCRAFT_CONFIG_KEY" && -n "$SNAPCRAFT_CONFIG_IV")
+
+  - provider: script
+    skip_cleanup: true
+    script: linux/travis-build.sh ppa_deploy
+    on:
+      condition: ($BUILD_TYPE = debian)
 
 branches:
   except:
