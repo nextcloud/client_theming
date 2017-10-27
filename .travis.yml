@@ -11,8 +11,8 @@ env:
   - DOCKER_IMAGE=ubuntu:xenial
   - SNAP_PRIME_ON_PULL_REQUEST=true
   - SNAP_DEPLOY_CHANNEL=edge
-  - SNAPCRAFT_CONFIG_KEY=''
-  - SNAPCRAFT_CONFIG_IV=''
+  - SNAPCRAFT_CONFIG_KEY=$encrypted_ad766d8d4221_key
+  - SNAPCRAFT_CONFIG_IV=$encrypted_ad766d8d4221_iv
 
   matrix:
   - BUILD_TYPE=appimage

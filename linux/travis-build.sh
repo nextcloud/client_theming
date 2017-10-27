@@ -61,15 +61,17 @@ elif [ "$BUILD_TYPE" == "snap" ]; then
             exec $0 snap_transfer_deploy
         fi
     elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
+        sudo mkdir -p $THIS_PATH/.snapcraft -m 777
         set +x
         openssl aes-256-cbc -K $SNAPCRAFT_CONFIG_KEY \
             -iv $SNAPCRAFT_CONFIG_IV \
-            -in $THIS_PATH/snap/.snapcraft/travis_snapcraft.cfg \
-            -out $THIS_PATH/snap/.snapcraft/snapcraft.cfg -d
+            -in $THIS_PATH/travis_snapcraft.cfg \
+            -out $THIS_PATH/.snapcraft/snapcraft.cfg -d
         set -x
 
         ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
-        docker_exec snapcraft push *.snap --release edge
+        snap=$(find "$THIS_PATH" -name '*.snap' -printf '%P' -quit)
+        docker_exec snapcraft push $snap --release edge
     elif [ "$TRAVIS_BUILD_STEP" == "snap_github_release" ]; then
         ls $THIS_PATH/*.snap &> /dev/null || docker_exec snapcraft
         snap=$(ls $THIS_PATH/*.snap -1 | head -n1)
