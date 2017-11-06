@@ -81,7 +81,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         cd ..
     done
 
-elif [ "$TRAVIS_BUILD_STEP" == "snap_store_deploy" ]; then
+elif [ "$TRAVIS_BUILD_STEP" == "ppa_deploy" ]; then
     cd ..
 
     kind=`cat kind`
