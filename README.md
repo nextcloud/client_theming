@@ -142,7 +142,7 @@ sudo make install
 3. `wget https://github.com/sparkle-project/Sparkle/releases/download/1.14.0/Sparkle-1.14.0.tar.bz2`
 4. `tar -xf Sparkle-1.14.0.tar.bz2`
 5. `mv Sparkle.framework ~/Library/Frameworks/`
-6. Install XCode 6.4 from http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
+6. Install XCode 7.2.1
 7. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 8. Generate Sparkle keys: `./bin/generate_keys`. Keep those, if you loose it you won't be able to deploy updates anymore.
 9. Store the keys in `osx/`. Make sure to not make the `dsa_priv.pem` publicly available.
@@ -150,16 +150,15 @@ sudo make install
 
 ### Compile Qt
 
-Because the desktop client comes with some custom patches you have to download the Qt 5.6.2 source and then apply all of them. Make sure to adjust <client> with the login to the cloned client repository.
+Download and compile Qt 5.9.2 source. Unfortunately the Qt patches don't apply anymore,
+so we just ignore them for the time being.
 
 ```bash
 cd /tmp/
-wget http://download.qt.io/official_releases/qt/5.6/5.6.2/single/qt-everywhere-opensource-src-5.6.2.tar.gz
-tar -xf qt-everywhere-opensource-src-5.6.2.tar.gz
-cd /tmp/qt-everywhere-opensource-src-5.6.2/qtbase
-git apply <client>/admin/qt/patches/qtbase/*.patch
-cd ..
-./configure -sdk macosx10.9 -openssl -openssl-linked
+wget http://download.qt.io/official_releases/qt/5.9/5.9.2/single/qt-everywhere-opensource-src-5.9.2.tar.xz
+tar -xjf qt-everywhere-opensource-src-5.9.2.tar.xz
+cd /tmp/qt-everywhere-opensource-src-5.9.2
+./configure -sdk macosx10.11 -openssl -openssl-linked -I /usr/local/opt/openssl/include/ -L /usr/local/opt/openssl/lib/ -nomake examples
 make -j2
 sudo make -j1 install
 ```
