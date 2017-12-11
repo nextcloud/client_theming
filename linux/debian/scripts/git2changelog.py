@@ -64,7 +64,9 @@ def collectEntries(baseCommit, baseVersion, kind):
                 result = processVersionTag(tag)
                 if result:
                     lastVersionTag = tag
-                    (baseVersion, kind) = result
+                    (b, k) = result
+                    if b>baseVersion or (k=="release" and kind=="beta"):
+                        (baseVersion, kind) = result
 
         entries.append((commit, name, email, date, revdate, subject,
                         baseVersion, kind))
