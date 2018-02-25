@@ -1,2 +1,3 @@
 fix-application-icon-name.patch
 fix-syncstate-appname.patch
+set-kde-use-qt-sys-path.patch
