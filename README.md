@@ -40,7 +40,7 @@ deb http://download.opensuse.org/repositories/home:/ivaradi/Debian_7.0/ /
 Before installing, you also need to add the respository's key to the list of trusted APT keys with a command line:
 
 ```
-wget -q -O - <repository URL>/Release.key | apt-key add -y
+wget -q -O - <repository URL>/Release.key | apt-key add
 ```
 
 For example (as root):
