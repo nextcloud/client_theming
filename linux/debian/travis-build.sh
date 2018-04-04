@@ -100,8 +100,16 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
     done
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        cat > ~/.dput.cf <<EOF
+[sppa]
+fqdn			= ppa.launchpad.net
+method			= sftp
+incoming		= ~%(ppa)s
+login	                = anonymous
+EOF
+
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
-            dput -d -P $PPA $changes > /dev/null
+            dput -d $PPA $changes > /dev/null
         done
     fi
 
