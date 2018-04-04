@@ -16,6 +16,9 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
     sudo apt-get install -y devscripts cdbs osc
 
+    encrypted_585e03da75ed_key=69d139250533bb94af5f7deb5853834bdbd487125b52ae86ee43c0674e273f75
+    encrypted_585e03da75ed_iv=0ea1a2671be2e321ac3145f143d6d86c
+
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
