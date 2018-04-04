@@ -104,7 +104,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 [sppa]
 fqdn			= ppa.launchpad.net
 method			= sftp
-incoming		= ~%(ppa)s
+incoming		= ~%(sppa)s
 login	                = anonymous
 EOF
 
