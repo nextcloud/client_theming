@@ -5,8 +5,8 @@ shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
-PPA=ppa:nextcloud-devs/client
-PPA_BETA=ppa:nextcloud-devs/client-beta
+PPA=sppa:nextcloud-devs/client
+PPA_BETA=sppa:nextcloud-devs/client-beta
 
 OBS_PROJECT=home:ivaradi
 OBS_PROJECT_BETA=home:ivaradi:beta
@@ -26,7 +26,7 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         #openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
     elif test "$encrypted_8da7a4416c7a_key" -a "$encrypted_8da7a4416c7a_iv"; then
         openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
-        PPA=ppa:ivaradi/nextcloud-client-exp
+        PPA=sppa:ivaradi/nextcloud-client-exp
     fi
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
