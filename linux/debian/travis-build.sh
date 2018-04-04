@@ -81,6 +81,14 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
         cd ..
     done
 
+    cd ..
+
+    if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        for changes in nextcloud-client_*~+([a-z])1_source.changes; do
+            dput $PPA $changes > /dev/null
+        done
+    fi
+
 elif [ "$TRAVIS_BUILD_STEP" == "ppa_deploy" ]; then
     cd ..
 
