@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: required
 language: generic
 
 services:
@@ -22,23 +21,28 @@ env:
   - BUILD_TYPE=win
 
 before_install:
+  - sudo: required
   - linux/travis-build.sh before_install
 
 install:
+  - sudo: required
   - linux/travis-build.sh install
 
 before_script:
+  - sudo: required
   - linux/travis-build.sh before_script
 
 script:
   - linux/travis-build.sh script
 
 after_success:
+  - sudo: required
   - linux/travis-build.sh after_success
 
 deploy:
   - provider: script
     skip_cleanup: true
+    sudo: required
     script: linux/travis-build.sh snap_store_deploy
     on:
       condition: ($BUILD_TYPE = snap && -n "$SNAPCRAFT_CONFIG_KEY" && -n "$SNAPCRAFT_CONFIG_IV")
