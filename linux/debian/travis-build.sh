@@ -105,7 +105,7 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 fqdn			= ppa.launchpad.net
 method			= sftp
 incoming		= ~%(sppa)s
-login	                = anonymous
+login	                = ivaradi
 EOF
 
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
