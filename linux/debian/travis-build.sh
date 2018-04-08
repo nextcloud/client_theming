@@ -29,6 +29,9 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         PPA=sppa:ivaradi/nextcloud-client-exp
     fi
 
+    mkdir -p ~/.ssh
+    ssh-keyscan ppa.launchpad.net >> ~/.ssh/known_hosts
+
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
     echo
     echo "dput -H:"
