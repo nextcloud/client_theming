@@ -1,10 +1,10 @@
 os: linux
 dist: trusty
-sudo: false
+sudo: true
 language: generic
 
-#services:
-#- docker
+services:
+- docker
 
 env:
   global:

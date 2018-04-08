@@ -109,7 +109,7 @@ login	                = ivaradi
 EOF
 
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
-            dput -d $PPA $changes > /dev/null
+            dput -ddd $PPA $changes
         done
     fi
 
