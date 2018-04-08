@@ -14,7 +14,7 @@ OBS_PACKAGE=nextcloud-client
 
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
-    sudo apt-get install -y devscripts cdbs osc
+    sudo apt-get install -y devscripts cdbs osc python-paramiko
 
     encrypted_585e03da75ed_key=69d139250533bb94af5f7deb5853834bdbd487125b52ae86ee43c0674e273f75
     encrypted_585e03da75ed_iv=0ea1a2671be2e321ac3145f143d6d86c
