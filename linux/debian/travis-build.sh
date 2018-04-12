@@ -5,8 +5,8 @@ shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
-PPA=ppa:nextcloud-devs/client
-PPA_BETA=ppa:nextcloud-devs/client-beta
+PPA=sppa:nextcloud-devs/client
+PPA_BETA=sppa:nextcloud-devs/client-beta
 
 OBS_PROJECT=home:ivaradi
 OBS_PROJECT_BETA=home:ivaradi:beta
@@ -14,19 +14,43 @@ OBS_PACKAGE=nextcloud-client
 
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
-    sudo apt-get install -y devscripts cdbs osc
+    sudo apt-get install -y devscripts cdbs osc python-paramiko
 
+    encrypted_585e03da75ed_key=69d139250533bb94af5f7deb5853834bdbd487125b52ae86ee43c0674e273f75
+    encrypted_585e03da75ed_iv=0ea1a2671be2e321ac3145f143d6d86c
+
+    mkdir -p ~/.ssh
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
 
-        openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
+        openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/ssh-key.txt.enc -d > ~/.ssh/id_rsa
+        chmod 0400 ~/.ssh/id_rsa
+
+        #openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
     elif test "$encrypted_8da7a4416c7a_key" -a "$encrypted_8da7a4416c7a_iv"; then
         openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
-        PPA=ppa:ivaradi/nextcloud-client-exp
+        PPA=sppa:ivaradi/nextcloud-client-exp
     fi
 
+    ssh-keyscan ppa.launchpad.net >> ~/.ssh/known_hosts
+
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
+    echo
+    echo "dput -H:"
+    dput -H
+
+    echo
+    echo "/etc/dput.cf"
+    cat /etc/dput.cf
+
+    if test -f ~/.dput.cf; then
+       echo
+       echo "~/.dput.cf"
+       cat ~/.dput.cf
+       echo
+    fi
+
     #pwd
     #ls -al
     #git log
@@ -80,6 +104,20 @@ elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
 
         cd ..
     done
+
+    if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        cat > ~/.dput.cf <<EOF
+[sppa]
+fqdn			= ppa.launchpad.net
+method			= sftp
+incoming		= ~%(sppa)s
+login	                = ivaradi
+EOF
+
+        for changes in nextcloud-client_*~+([a-z])1_source.changes; do
+            dput -ddd $PPA $changes
+        done
+    fi
 
 elif [ "$TRAVIS_BUILD_STEP" == "ppa_deploy" ]; then
     cd ..
