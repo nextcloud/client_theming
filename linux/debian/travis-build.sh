@@ -25,6 +25,7 @@ if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
 
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/ssh-key.txt.enc -d > ~/.ssh/id_rsa
+        chmod 0400 ~/.ssh/id_rsa
 
         #openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
     elif test "$encrypted_8da7a4416c7a_key" -a "$encrypted_8da7a4416c7a_iv"; then
