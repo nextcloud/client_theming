@@ -5,8 +5,8 @@ shopt -s extglob
 
 TRAVIS_BUILD_STEP="$1"
 
-PPA=ppa:nextcloud-devs/client
-PPA_BETA=ppa:nextcloud-devs/client-beta
+PPA=sppa:nextcloud-devs/client
+PPA_BETA=sppa:nextcloud-devs/client-beta
 
 OBS_PROJECT=home:ivaradi
 OBS_PROJECT_BETA=home:ivaradi:beta
@@ -14,16 +14,19 @@ OBS_PACKAGE=nextcloud-client
 
 if [ "$TRAVIS_BUILD_STEP" == "install" ]; then
     sudo apt-get update -q
-    sudo apt-get install -y devscripts cdbs osc
+    sudo apt-get install -y devscripts cdbs osc python-paramiko
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/signing-key.txt.enc -d | gpg --import
         echo "DEBUILD_DPKG_BUILDPACKAGE_OPTS='-k7D14AA7B'" >> ~/.devscripts
 
+        openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/ssh-key.txt.enc -d > ~/.ssh/id_rsa
+        chmod 0400 ~/.ssh/id_rsa
+
         openssl aes-256-cbc -K $encrypted_585e03da75ed_key -iv $encrypted_585e03da75ed_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
     elif test "$encrypted_8da7a4416c7a_key" -a "$encrypted_8da7a4416c7a_iv"; then
         openssl aes-256-cbc -K $encrypted_8da7a4416c7a_key -iv $encrypted_8da7a4416c7a_iv -in linux/debian/oscrc.enc -out ~/.oscrc -d
-        PPA=ppa:ivaradi/nextcloud-client-exp
+        PPA=sppa:ivaradi/nextcloud-client-exp
     fi
 
 elif [ "$TRAVIS_BUILD_STEP" == "script" ]; then
@@ -95,6 +98,14 @@ elif [ "$TRAVIS_BUILD_STEP" == "ppa_deploy" ]; then
     OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        cat > ~/.dput.cf <<EOF
+[sppa]
+fqdn			= ppa.launchpad.net
+method			= sftp
+incoming		= ~%(sppa)s
+login	                = ivaradi
+EOF
+
         for changes in nextcloud-client_*~+([a-z])1_source.changes; do
             dput $PPA $changes > /dev/null
         done
