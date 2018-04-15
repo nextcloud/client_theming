@@ -98,6 +98,8 @@ elif [ "$TRAVIS_BUILD_STEP" == "ppa_deploy" ]; then
     OBS_SUBDIR="${OBS_PROJECT}/${OBS_PACKAGE}"
 
     if test "$encrypted_585e03da75ed_key" -a "$encrypted_585e03da75ed_iv"; then
+        ssh-keyscan ppa.launchpad.net >> ~/.ssh/known_hosts
+
         cat > ~/.dput.cf <<EOF
 [sppa]
 fqdn			= ppa.launchpad.net
