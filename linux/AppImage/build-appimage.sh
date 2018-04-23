@@ -1,118 +1,93 @@
 #! /bin/bash
 
-export SUDO_UID=${SUDO_UID:-1000}
-export SUDO_GID=${SUDO_GID:-1000}
+set -e # Exit on errors so that the Travis CI status indicator works
 
 export APP=Nextcloud
-export LOWERAPP=${APP,,}
-export ARCH=x86_64
 export VERSION=2.3.2-beta
 
-#Set Qt-5.8
-export QT_BASE_DIR=/opt/qt58
-export QTDIR=$QT_BASE_DIR
-export PATH=$QT_BASE_DIR/bin:$PATH
-export LD_LIBRARY_PATH=$QT_BASE_DIR/lib/x86_64-linux-gnu:$QT_BASE_DIR/lib:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$QT_BASE_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+sudo sh -c "echo 'deb-src http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04/Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update
+sudo apt-get -y build-dep owncloud-client
 
 #QtKeyChain 0.8.0
-cd 
-git clone https://github.com/frankosterfeld/qtkeychain.git
-cd qtkeychain
-git checkout v0.8.0
-mkdir build
-cd build
-cmake -D CMAKE_INSTALL_PREFIX=/app ../
-make -j4
-make install
+#git clone https://github.com/frankosterfeld/qtkeychain.git
+#cd qtkeychain
+#git checkout v0.8.0
+#mkdir build
+#cd build
+#cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+#make -j4
+#make DESTDIR=$(readlink -f $HOME/$APP/$APP.AppDir) install
 
-#Build client
-cd 
-mkdir build-client
-cd build-client
-cmake -D CMAKE_INSTALL_PREFIX=/app \
-    -D NO_SHIBBOLETH=1 \
-    -D OEM_THEME_DIR=/home/client/nextcloudtheme \
-    -DMIRALL_VERSION_SUFFIX=beta \
-    -DMIRALL_VERSION_BUILD=14 \
-    /home/client/client
-make -j4
-make install
-
-#Create skeleton
-mkdir -p $HOME/$APP/$APP.AppDir/usr/
-cd $HOME/$APP/
-
-#Fetch appimage functions
-wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
-. ./functions.sh
+git submodule update --init --recursive
+mkdir build-linux
+cd build-linux
+cmake -D CMAKE_INSTALL_PREFIX=/usr -D OEM_THEME_DIR=`pwd`/../nextcloudtheme ../client
+make
+make DESTDIR=$(readlink -f $APP.AppDir) install
 
 cd $APP.AppDir
 
-#clean binary
-sed -i -e 's|/app|././|g' /app/bin/nextcloud
-
-# Copy installed stuff
-cp -r /app/* ./usr/
-
-get_apprun
-
-cp /app/share/applications/nextcloud.desktop .
-cp /app/share/icons/hicolor/256x256/apps/Nextcloud.png nextcloud.png
-
-#Copy qt plugins
-mkdir -p ./usr/lib/qt5/plugis
-cp -r /opt/qt58/plugins ./usr/lib/qt5/plugins
-
-#Copy dependencies
-copy_deps
-
-delete_blacklisted
+# Why on earth...
+mv ./usr/lib/x86_64-linux-gnu/nextcloud/* ./usr/lib/x86_64-linux-gnu/ ; rm -rf ./usr/lib/x86_64-linux-gnu/nextcloud
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
 rm -rf usr/lib/cmake || true
 rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
-strip usr/bin/* usr/lib/* || true
-rm -rf app/ || true
-# Copy, since libssl must be in sync with libcrypto
-cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 usr/lib/
-# No need to add CMake stuff
 rm -rf usr/lib/x86_64-linux-gnu/cmake/
 rm -rf usr/mkspecs
+
 # Don't bundle nextcloudcmd as we don't run it anyway
 rm usr/bin/nextcloudcmd
+
 # Don't bundle the explorer extentions as we can't do anything with them in the AppImage
 rm -rf usr/share/caja-python/
 rm -rf usr/share/nautilus-python/
 rm -rf usr/share/nemo-python/
 
-#Move qt5.8 libs to the right location
-mv ./opt/qt58/lib/* ./usr/lib/
-rm -rf ./opt/
+# Move sync exlucde to right location
+mv ./etc/Nextcloud/sync-exclude.lst ./usr/bin/
+rm -rf ./etc
 
-#Move sync exlucde to right location
-mv ./usr/etc/Nextcloud/sync-exclude.lst ./usr/bin/
-rm -rf ./usr/etc
+sed -i -e 's|Icon=nextcloud|Icon=Nextcloud|g' usr/share/applications/nextcloud.desktop # Bug in desktop file?
+cp ./usr/share/icons/hicolor/512x512/apps/Nextcloud.png . # Workaround for linuxeployqt bug, FIXME
 
-#desktop intergration
-get_desktopintegration $LOWERAPP
+find .
 
-#Generate the appimage
 cd ..
-wget -c https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-chmod +x appimagetool-x86_64.AppImage
-./appimagetool-x86_64.AppImage --appimage-extract
 
-mkdir -p ../out/
-GLIBC_NEEDED=$(glibc_needed)
-APPIMAGE_FILENAME=${APP}-${VERSION}-${ARCH}.glibc$GLIBC_NEEDED.AppImage
-APPIMAGE_PATH=../out/$APPIMAGE_FILENAME
+# Use linuxdeployqt to deploy
+wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
+chmod a+x linuxdeployqt*.AppImage
+./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
+unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$APP.AppDir/usr/lib/x86_64-linux-gnu/:$APP.AppDir/usr/lib/
 
-./squashfs-root/AppRun -n -v $APP.AppDir $APPIMAGE_PATH
+./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -bundle-non-qt-libs
 
-#move appimage
-chown $SUDO_UID:$SUDO_GID ../out/*.AppImage
-mkdir -p /home/client/out
-mv ../out/*.AppImage /home/client/out/
+# Why on earth part two...
+mv $APP.AppDir/usr/lib/x86_64-linux-gnu/* $APP.AppDir/usr/lib/
+./squashfs-root/usr/bin/patchelf --set-rpath '$ORIGIN/' $APP.AppDir/usr/lib/libnextcloudsync.so.0
+
+./squashfs-root/AppRun $APP.AppDir/usr/share/applications/nextcloud.desktop -appimage
+
+ls *.AppImage
+
+# mv ./Nextcloud*.AppImage /home/client/out/
+
+########################################################################
+# Upload the AppDir
+########################################################################
+
+if [ "false" == "$TRAVIS_PULL_REQUEST" ]; then
+  wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  bash upload.sh $(readlink -f ./Nextcloud*.AppImage)
+else
+  curl --upload-file $(readlink -f ./Nextcloud*.AppImage) https://transfer.sh/Nextcloud-$VERSION-x86_64.AppImage
+  echo "AppImage has been uploaded to the URL above"
+fi
